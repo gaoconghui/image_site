@@ -8,6 +8,7 @@ class Gallery(models.Model):
     domain = models.CharField(max_length=200)
     tags = models.CharField(max_length=200,null=True)
     from_id = models.CharField(max_length=200)
+    cover_url = models.CharField(max_length=200)
     publish_time = models.IntegerField(null=True)
     insert_time = models.IntegerField(null=True)
     all_page = models.IntegerField(null=True)
