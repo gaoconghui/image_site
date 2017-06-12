@@ -2,6 +2,13 @@
     var e = a(b);
     a.fn.lazyload = function (f) {
         function g() {
+            var b = 0;
+            i.each(function () {
+                var c = a(this);
+                if (!j.skip_invisible || c.is(":visible"))if (a.abovethetop(this, j) || a.leftofbegin(this, j)); else if (a.belowthefold(this, j) || a.rightoffold(this, j)) {
+                    if (++b > j.failure_limit)return !1
+                } else c.trigger("appear"), b = 0
+            });
             $(function () {
                 $('#container').masonry({
                     // options
@@ -9,13 +16,6 @@
                     resize: true
                 });
             });
-            var b = 0;
-            i.each(function () {
-                var c = a(this);
-                if (!j.skip_invisible || c.is(":visible"))if (a.abovethetop(this, j) || a.leftofbegin(this, j)); else if (a.belowthefold(this, j) || a.rightoffold(this, j)) {
-                    if (++b > j.failure_limit)return !1
-                } else c.trigger("appear"), b = 0
-            })
         }
 
         var h, i = this, j = {

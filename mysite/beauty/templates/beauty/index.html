@@ -18,13 +18,6 @@
             "ajax_url": "http:\/\/localhost\/wp-admin\/admin-ajax.php",
             "home_url": "\/"
         };
-        $(function () {
-            $('#container').masonry({
-                // options
-                itemSelector: '.i_list',
-                resize: true
-            });
-        });
     </script>
     <script type="text/javascript" src="{% static 'beauty/js/masonry.pkgd.min.js' %}"></script>
     <!--[if lt IE 9]>
@@ -246,6 +239,15 @@
         </p>
     </div>
 </footer>
+<script>
+    $(function () {
+            $('#container').masonry({
+                // options
+                itemSelector: '.i_list',
+                resize: true
+            });
+        });
+</script>
 <script type="text/javascript" src="{% static 'beauty/js/script.js' %}"></script>
 </body>
 </html> 
