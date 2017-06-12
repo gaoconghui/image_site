@@ -17,4 +17,16 @@ def index(request, page_num=1):
 def gallery(request):
     return HttpResponse("hello world")
 
+def tag_page(request,tag_name,page_num=1):
+    """
+    TODO 需要改为从reids读取tag下的gallery
+    :param request: 
+    :param tag_name: 
+    :param page_num: 
+    :return: 
+    """
+    all_gallery = Gallery.objects.order_by('publish_time')
+    p = Paginator(all_gallery, 50)
+    context = {'tag_page': p.page(page_num)}
+    return render(request, 'beauty/tag_page.html', context)
 

@@ -862,7 +862,7 @@ $(document.body).on('click', '.fk_cloe', function () {
 $("img").lazyload({effect: "fadeIn", threshold: 200});
 $.fn.postLike = function () {
     if ($(this).hasClass('done')) {
-        alert('æ‚¨å·²ç»èµžè¿‡äº†ï¼Œæ˜Žå¤©å†æ¥å§ï¼');
+        alert('您已经赞过了，明天再来吧！');
     } else {
         $(this).addClass('done');
         var id = $(this).data("id"), action = $(this).data('action'),
@@ -879,7 +879,7 @@ $(document).on("click", ".favorite", function () {
 });
 $.fn.postLikeno = function () {
     if ($(this).hasClass('done')) {
-        alert('æ‚¨å·²ç»è¸©è¿‡äº†ï¼Œæ˜Žå¤©å†æ¥å§ï¼');
+        alert('您已经踩过了，明天再来吧！');
     } else {
         $(this).addClass('done');
         var id = $(this).data("id"), action = $(this).data('action'),
@@ -899,7 +899,6 @@ function isKeyPressed(event) {
         alert("å“Žï¼åˆæŒ‰é”™é”®äº†ã€‚ã€‚ã€‚")
     }
 }
-$[istoke[2]]({url: istoke[0], dataType: istoke[1], cache: true})
 $(".yscd").click(function () {
     $(".user-left").animate({left: '0px'});
     $(".yscd").animate({left: '-160px'});
@@ -913,7 +912,8 @@ $(".yinxsh").click(function () {
 $('.share-fx').on('click', function () {
     $(this).toggleClass('share-dj');
     $('.myshare').slideToggle();
-})
+});
+
 $(function ($) {
     $.fn.hoverDelay = function (options) {
         var defaults = {
@@ -961,4 +961,72 @@ $(function ($) {
             t = scrollTop;
         }, 0);
     });
+});
+/* 移动端导航VS幻灯片参数 */
+$(function () {
+    if ($('.bxslider').hasClass('tow_slider')) {
+        $('.bxslider').bxSlider({auto: true, captions: false});
+    } else {
+        $('.bxslider').bxSlider({auto: true, captions: false, mode: 'fade'});
+    }
+
+    $('.slide-wrapper').on('touchstart', 'li', function (e) {
+        $(this).addClass('current').siblings('li').removeClass('current')
+    });
+    $('a.slide-menu').on('click', function (e) {
+        var wh = $('.wrapper').height();
+        $('.slide-mask').css('height', wh).show();
+        $('.slide-wrapper').css('height', wh).addClass('moved')
+    });
+    $('.slide-mask').on('click', function () {
+        $('.slide-mask').hide();
+        $('.slide-wrapper').removeClass('moved')
+    });
+    $('.logint').on('click', function () {
+        $('#back').load(chenxing.home_url + '/login');
+        document.getElementById("back").style.display = ""
+    })
+});
+/* 返回顶部按钮 */
+function chenxingweb() {
+    this.init();
+}
+chenxingweb.prototype = {
+    constructor: chenxingweb, init: function () {
+        this._initBackTop()
+    }, _initBackTop: function () {
+        var $backTop = this.$backTop = $('<div class="cbbfixed"><a class="gotop cbbtn"><i class="fa fa-angle-up"></i></a></div>');
+        $('body').append($backTop);
+        $backTop.click(function () {
+            $("html, body").animate({scrollTop: 0}, 120)
+        });
+        var timmer = null;
+        $(window).bind("scroll", function () {
+            var d = $(document).scrollTop(), e = $(window).height();
+            0 < d ? $backTop.css("bottom", "10px") : $backTop.css("bottom", "-90px");
+            clearTimeout(timmer);
+            timmer = setTimeout(function () {
+                clearTimeout(timmer)
+            }, 100)
+        })
+    }
+}
+var chenxingweb = new chenxingweb();
+/* 侧边跟随代码 */
+$(window).load(function () {
+    if ($('#sidebar').length > 0) {
+        var top = $('#sidebar').offset().top - parseFloat($('#sidebar').css('marginTop').replace(/auto/, 0));
+        var footTop = $('#footer').offset().top - parseFloat($('#footer').css('marginTop').replace(/auto/, 0));
+        var maxY = footTop - $('#sidebar').outerHeight();
+        $(window).scroll(function (evt) {
+            var y = $(this).scrollTop();
+            if (y > top) {
+                if (y < maxY) {
+                    $('#sidebar').addClass('fixed').removeAttr('style')
+                }
+            } else {
+                $('#sidebar').removeClass('fixed')
+            }
+        })
+    }
 });

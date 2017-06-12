@@ -3,8 +3,6 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0,user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>images</title>
     <meta name="keywords" content="key words"/>
     <meta name="description"
@@ -21,7 +19,7 @@
     </script>
     <script type="text/javascript" src="{% static 'beauty/js/masonry.pkgd.min.js' %}"></script>
     <!--[if lt IE 9]>
-    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+    <!--<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>-->
     <![endif]-->
 </head>
 <body class="home blog body_top">
@@ -32,12 +30,12 @@
         </div>
         <div class="header_menu">
             <ul>
-                <li id="menu-item-389" class="megamenu toke"><a href="/xinggan/">taga</a></li>
-                <li id="menu-item-390" class="megamenu toke"><a href="/qingchun/">tagb</a></li>
-                <li id="menu-item-388" class="megamenu toke"><a href="/siwa/">tagc</a></li>
-                <li id="menu-item-437" class="megamenu toke"><a href="/mingxing/">tagd</a></li>
-                <li id="menu-item-396" class="megamenu toke"><a href="/mote/">tage</a></li>
-                <li id="menu-item-3557" class="megamenu toke"><a href="/rentiyishu/">tagf</a></li>
+                <li id="menu-item-389" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='xinggan' page_num=1 %}">taga</a></li>
+                <li id="menu-item-390" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">tagb</a></li>
+                <li id="menu-item-388" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">tagc</a></li>
+                <li id="menu-item-437" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">tagd</a></li>
+                <li id="menu-item-396" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">tage</a></li>
+                <li id="menu-item-3557" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='renti' page_num=1 %}">tagf</a></li>
             </ul>
         </div>
         <div class="login_text mobie">
@@ -56,18 +54,15 @@
 <nav class="slide-wrapper">
     <div class="header-info">
         <div class="header-logo">
-            <a href="/login/?r=http://www.sotu.la/">
-            </a>
         </div>
         <div class="header-info-content">
         </div>
     </div>
     <ul class="menu_slide" nav-data="nav_363114">
-        <li id="menu-item-2853"><a href="/xinggan/">性感美女</a></li>
-        <li id="menu-item-2854"><a href="/qingchun/">清纯美女</a></li>
-        <li id="menu-item-2855"><a href="/siwa/">丝袜美腿</a></li>
-        <li id="menu-item-2856"><a href="/mote/">性感模特</a></li>
-        <li id="menu-item-2857"><a href="/mingxing/">明星写真</a></li>
+        <li id="menu-item-2854"><a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">清纯美女</a></li>
+        <li id="menu-item-2855"><a href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">丝袜美腿</a></li>
+        <li id="menu-item-2856"><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">性感模特</a></li>
+        <li id="menu-item-2857"><a href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">明星写真</a></li>
     </ul>
 </nav>
 
@@ -152,37 +147,37 @@
 <div class="zt_list_index cl">
     <ul class="list_index_ul cl">
         <li>
-            <a href="/tag/90%e5%90%8e%e7%be%8e%e5%a5%b3/">
+            <a href="{% url 'beauty:tag_page' tag_name='90hou' page_num=1 %}">
                 <img src="http://img.sotu.la/90mm4_conew1.jpg" alt="90后MM" width="270" height="120">
                 <span>90后MM</span>
             </a>
         </li>
         <li>
-            <a href="/tag/%e4%ba%ba%e4%bd%93%e8%89%ba%e6%9c%af/">
+            <a href="{% url 'beauty:tag_page' tag_name='renti' page_num=1 %}">
                 <img src="http://img.sotu.la/rtys6_conew1.jpg" alt="人体艺术" width="270" height="120">
                 <span>人体艺术</span>
             </a>
         </li>
         <li>
-            <a href="/tag/%e6%b8%85%e7%ba%afmm/">
+            <a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">
                 <img src="http://img.sotu.la/qcmm2_conew1.jpg" alt="清纯MM" width="270" height="120">
                 <span>清纯MM</span>
             </a>
         </li>
         <li>
-            <a href="/tag/%e4%ba%ba%e5%a6%bb%e8%af%b1%e6%83%91/">
+            <a href="{% url 'beauty:tag_page' tag_name='renqi' page_num=1 %}">
                 <img src="http://img.sotu.la/rqyh5_conew1.jpg" alt="人妻诱惑" width="270" height="120">
                 <span>人妻诱惑</span>
             </a>
         </li>
         <li>
-            <a href="/tag/%e7%a7%81%e6%88%bf/">
+            <a href="{% url 'beauty:tag_page' tag_name='sifang' page_num=1 %}">
                 <img src="http://img.sotu.la/sfxz3_conew1.jpg" alt="私房写真" width="270" height="120">
                 <span>私房写真</span>
             </a>
         </li>
         <li>
-            <a href="/tag/%e4%b8%9d%e8%a2%9c/">
+            <a href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">
                 <img src="http://img.sotu.la/swyh1_conew1.jpg" alt="丝袜诱惑" width="270" height="120">
                 <span>丝袜诱惑</span>
             </a>
