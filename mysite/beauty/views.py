@@ -9,7 +9,7 @@ from django.template.defaultfilters import register
 
 def index(request, page_num=1):
     all_gallery = Gallery.objects.order_by('publish_time')
-    p = Paginator(all_gallery, 10)
+    p = Paginator(all_gallery, 50)
     context = {'hot_page': p.page(page_num)}
     return render(request, 'beauty/index.html', context)
 
