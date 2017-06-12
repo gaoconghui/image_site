@@ -11,15 +11,9 @@
     <link rel="stylesheet" id='font-awesome-css' type="text/css" href="{% static 'beauty/css/font-awesome.min.css' %}"
           media='all'/>
     <script type="text/javascript" src="{% static 'beauty/js/jquery.js' %}"></script>
-    <script type="text/javascript">
-        var chenxing = {
-            "ajax_url": "http:\/\/localhost\/wp-admin\/admin-ajax.php",
-            "home_url": "\/"
-        };
-    </script>
     <script type="text/javascript" src="{% static 'beauty/js/masonry.pkgd.min.js' %}"></script>
     <!--[if lt IE 9]>
-    <!--<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>-->
+    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <![endif]-->
 </head>
 <body class="home blog body_top">
@@ -30,12 +24,18 @@
         </div>
         <div class="header_menu">
             <ul>
-                <li id="menu-item-389" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='xinggan' page_num=1 %}">taga</a></li>
-                <li id="menu-item-390" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">tagb</a></li>
-                <li id="menu-item-388" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">tagc</a></li>
-                <li id="menu-item-437" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">tagd</a></li>
-                <li id="menu-item-396" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">tage</a></li>
-                <li id="menu-item-3557" class="megamenu toke"><a href="{% url 'beauty:tag_page' tag_name='renti' page_num=1 %}">tagf</a></li>
+                <li id="menu-item-389" class="megamenu toke"><a
+                        href="{% url 'beauty:tag_page' tag_name='xinggan' page_num=1 %}">taga</a></li>
+                <li id="menu-item-390" class="megamenu toke"><a
+                        href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">tagb</a></li>
+                <li id="menu-item-388" class="megamenu toke"><a
+                        href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">tagc</a></li>
+                <li id="menu-item-437" class="megamenu toke"><a
+                        href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">tagd</a></li>
+                <li id="menu-item-396" class="megamenu toke"><a
+                        href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">tage</a></li>
+                <li id="menu-item-3557" class="megamenu toke"><a
+                        href="{% url 'beauty:tag_page' tag_name='renti' page_num=1 %}">tagf</a></li>
             </ul>
         </div>
         <div class="login_text mobie">
@@ -242,6 +242,9 @@
                 resize: true
             });
         });
+
+
+
 </script>
 <script type="text/javascript" src="{% static 'beauty/js/script.js' %}"></script>
 </body>
