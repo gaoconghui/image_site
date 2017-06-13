@@ -14,7 +14,7 @@ def index(request, page_num=1):
     return render(request, 'beauty/index.html', context)
 
 
-def gallery(request, _id, page_num):
+def gallery(request, _id, page_num=1):
     page_num = int(page_num)
     _gallery = Gallery.objects.get(id=_id)
     gallery_id = _gallery.gallery_id
