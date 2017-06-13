@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>images</title>
+    <meta name="keywords" content="key words"/>
+    <meta name="description"
+          content="desc"/>
+    <link rel="stylesheet" id='style-css' type="text/css" href="{% static 'beauty/css/main.css' %}" media='all'/>
+    <link rel="stylesheet" id='font-awesome-css' type="text/css" href="{% static 'beauty/css/font-awesome.min.css' %}"
+          media='all'/>
+    <script type="text/javascript" src="{% static 'beauty/js/jquery.js' %}"></script>
+    <script type="text/javascript">
+        var chenxing = {
+            "ajax_url": "http:\/\/localhost\/wp-admin\/admin-ajax.php",
+            "home_url": "\/"
+        };
+    </script>
+    <script type="text/javascript" src="{% static 'beauty/js/masonry.pkgd.min.js' %}"></script>
+    <!--[if lt IE 9]>
+    <!--<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>-->
+    <![endif]-->
+</head>
+<body class="home blog body_top">
+{% include "beauty/header.html" %}
+{% block mainbody %}
+{% endblock %}
+{% include "beauty/footer.html" %}
+<script>
+    $(function () {
+        $('#container').masonry({
+            // options
+            itemSelector: '.i_list',
+            resize: true
+        });
+    });
+</script>
+<script type="text/javascript" src="{% static 'beauty/js/script.js' %}"></script>
+</body>
+</html>
