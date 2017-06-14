@@ -1,0 +1,21 @@
+<!--图片展示-->
+{% load static %}
+{% if page_content %}
+<div class="update_area_lists cl" id="container">
+    {% for gallery in page_content %}
+    <div class="i_list list_n2">
+        <a href="{% url 'beauty:gallery' _id=gallery.id page_num=1 %}" title="{{gallery.title}}">
+            <img src="{% static 'beauty/pic/thumb_2.png' %}"
+                 data-original="{{gallery.cover_url}}" width="120px"
+                 height="124px" alt="{{gallery.title}}" style="display: inline;">
+        </a>
+        <div class="case_info">
+            <div class="meta-title"> {{gallery.title}}</div>
+            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-6-10<span class="cx_like"><i
+                    class="fa fa-heart"></i>19</span></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+{% endif %}

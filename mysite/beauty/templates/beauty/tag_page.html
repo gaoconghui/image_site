@@ -56,30 +56,9 @@
 
 <div class="update_area">
     <div class="update_area_content">
-        <div class="update_area_lists cl" id="container">
 
+        {% include "beauty/component/gallery_view.html" %}
 
-            <!--图片展示-->
-            {% if tag_page %}
-            {% for gallery in tag_page %}
-            <div class="i_list list_n2">
-                <a href="{% url 'beauty:gallery' _id=gallery.id page_num=1 %}" title="{{gallery.title}}">
-                    <img src="{% static 'beauty/pic/thumb_2.png' %}"
-                         data-original="{{gallery.cover_url}}" width="120px"
-                         height="124px" alt="{{gallery.title}}" style="display: inline;">
-                </a>
-                <div class="case_info">
-                    <div class="meta-title"> {{gallery.title}}</div>
-                    <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-6-10<span class="cx_like"><i
-                            class="fa fa-heart"></i>19</span></div>
-                </div>
-            </div>
-            {% endfor %}
-            {% else %}
-            {% endif %}
-
-
-        </div>
         <nav class="navigation pagination" role="navigation">
             <h2 class="screen-reader-text">文章导航</h2>
             <div class="nav-links"><span class="page-numbers current"><span

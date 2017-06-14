@@ -1,16 +1,15 @@
 # coding=utf-8 #coding:utf-8
 
-from beauty.models import Gallery
-from beauty.models import Image
 from django.core.paginator import Paginator
 from django.shortcuts import render
+
+from beauty.models import Gallery
+from beauty.models import Image
 
 
 def index(request, page_num=1):
     page_num = int(page_num)
-    all_gallery = Gallery.objects.order_by('publish_time')
-    p = Paginator(all_gallery, 50)
-    context = {'hot_page': p.page(page_num)}
+    context = {'page_content': __get_galleries_by_tag("hot", 50, page_num)}
     return render(request, 'beauty/index.html', context)
 
 
@@ -35,7 +34,8 @@ def gallery(request, _id, page_num=1):
     context = {
         "gallery": _gallery,
         "image": image,
-        "page" : page
+        "page": page,
+        "page_content": __get_galleries_by_tag("tag", page_size=20, page=1)
     }
     return render(request, 'beauty/detail.html', context)
 
@@ -48,7 +48,11 @@ def tag_page(request, tag_name, page_num=1):
     :param page_num: 
     :return: 
     """
-    all_gallery = Gallery.objects.order_by('publish_time')
-    p = Paginator(all_gallery, 50)
-    context = {'tag_page': p.page(page_num)}
+    context = {'page_content': __get_galleries_by_tag(tag_name, page_size=50, page=page_num)}
     return render(request, 'beauty/tag_page.html', context)
+
+
+def __get_galleries_by_tag(tag, page_size, page):
+    all_gallery = Gallery.objects.order_by('publish_time')
+    p = Paginator(all_gallery, page_size)
+    return p.page(page)
