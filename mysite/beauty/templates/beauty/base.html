@@ -1,7 +1,7 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <title>images</title>
     <meta name="keywords" content="key words"/>
@@ -16,26 +16,21 @@
             "ajax_url": "http:\/\/localhost\/wp-admin\/admin-ajax.php",
             "home_url": "\/"
         };
+        var beauty = {
+            "need_masonry": false
+        }
     </script>
-    <script type="text/javascript" src="{% static 'beauty/js/masonry.pkgd.min.js' %}"></script>
     <!--[if lt IE 9]>
     <!--<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>-->
     <![endif]-->
 </head>
 <body class="home blog body_top">
 {% include "beauty/header.html" %}
+{% include "beauty/slider.html" %}
 {% block mainbody %}
 {% endblock %}
 {% include "beauty/footer.html" %}
-<script>
-    $(function () {
-        $('#container').masonry({
-            // options
-            itemSelector: '.i_list',
-            resize: true
-        });
-    });
-</script>
+<script type="text/javascript" src="{% static 'beauty/js/masonry.pkgd.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'beauty/js/script.js' %}"></script>
 </body>
 </html>

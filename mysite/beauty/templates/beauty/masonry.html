@@ -1,0 +1,12 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'beauty/js/masonry.pkgd.min.js' %}"></script>
+<script>
+    $(function () {
+        $('#container').masonry({
+            // options
+            itemSelector: '.i_list',
+            resize: true
+        });
+    });
+    beauty.need_masonry = true
+</script>
