@@ -1,9 +1,9 @@
-{% extends "beauty/base.html" %}
+{% extends "beauty/component/base.html" %}
 
 {% block mainbody %}
 {% load static %}
 <body class="home blog body_top">
-{% include "beauty/header.html" %}
+{% include "beauty/component/header.html" %}
 <div class="slide-mask"></div>
 <nav class="slide-wrapper">
     <div class="header-info">
@@ -150,5 +150,5 @@
         <li><a href="http://www.mizhivip.cn">蜜汁写真</a></li>
     </ul>
 </div>
-{% include "beauty/masonry.html" %}
+{% include "beauty/component/masonry.html" %}
 {% endblock %}

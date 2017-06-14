@@ -25,11 +25,11 @@
     <![endif]-->
 </head>
 <body class="home blog body_top">
-{% include "beauty/header.html" %}
-{% include "beauty/slider.html" %}
+{% include "beauty/component/header.html" %}
+{% include "beauty/component/slider.html" %}
 {% block mainbody %}
 {% endblock %}
-{% include "beauty/footer.html" %}
+{% include "beauty/component/footer.html" %}
 <script type="text/javascript" src="{% static 'beauty/js/masonry.pkgd.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'beauty/js/script.js' %}"></script>
 </body>
