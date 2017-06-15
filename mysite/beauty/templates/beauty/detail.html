@@ -2,6 +2,7 @@
 
 {% block mainbody %}
 {% load static %}
+{% load mytag %}
 
 <div class="index_header nav_headertop">
     <div class="header_inner">
@@ -72,7 +73,7 @@
                     <div class="image_div" id="image_div">
                         <p>
                             <a href="{%url 'beauty:gallery' _id=page.next_gallery page_num=page.next_page %}"
-                               title="点击图片查看下一张"><img src="{{image.0.image_url}}" alt="{{image.0.desc}}"></a>
+                               title="点击图片查看下一张"><img src="{%image image.0.image_id%}" alt="{{image.0.desc}}"></a>
                         </p>
 
                         <div class="nav-links page_imges">
@@ -90,7 +91,7 @@
                             {% elif i == -1 %}
                             <em>... </em>
                             {% else %}
-                            <a class="page-numbers" href="{%url 'beauty:gallery' _id=gallery.id page_num=i %}"
+                            <a class="page-numbers" href="{%url 'beauty:gallery' _id=gallery.gallery_id page_num=i %}"
                                title="第 {{i}} 页">{{i}}</a>
                             {% endif %}
                             {% endfor %}

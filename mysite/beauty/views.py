@@ -15,9 +15,8 @@ def index(request, page_num=1):
 
 def gallery(request, _id, page_num=1):
     page_num = int(page_num)
-    _gallery = Gallery.objects.get(id=_id)
-    gallery_id = _gallery.gallery_id
-    all_images = Image.objects.filter(gallery_id=gallery_id)
+    _gallery = Gallery.objects.get(gallery_id=_id)
+    all_images = Image.objects.filter(gallery_id=_id)
 
     p = Paginator(all_images, 1)
     if page_num > p.num_pages:

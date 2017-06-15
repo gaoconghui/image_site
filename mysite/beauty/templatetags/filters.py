@@ -5,8 +5,9 @@ from django import template
 
 register = template.Library()
 
+
 @register.filter(name='calculate_page')
-def calculate_page(current_page,total_page):
+def calculate_page(current_page, total_page):
     """
     计算页码，-1为省略号
     :param current_page: 当前页
