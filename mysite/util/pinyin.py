@@ -16,4 +16,4 @@ def get_pinyin(s):
 
 if __name__ == "__main__":
     str_input = '我是中国人'
-    print get_pinyin(str_input)
+    print(get_pinyin(str_input))

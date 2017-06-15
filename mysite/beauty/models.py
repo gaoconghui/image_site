@@ -1,17 +1,29 @@
-# Create your models here.
+# -*- coding: utf-8 -*-
+import time
+
 from django.db import models
+
+"""
+model与爬取的model不同，这里完全不包含原始图片的信息，只包含线上展示的内容
+"""
+
+
+class ItemManager(models.Manager):
+    def create_item(self, **kwargs):
+        item = self.create(**kwargs)
+        return item
 
 
 class Gallery(models.Model):
     gallery_id = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
-    domain = models.CharField(max_length=200)
     tags = models.CharField(max_length=200, null=True)
-    from_id = models.CharField(max_length=200)
-    cover_url = models.CharField(max_length=200)
-    publish_time = models.IntegerField(null=True)
-    insert_time = models.IntegerField(null=True)
-    all_page = models.IntegerField(null=True)
+    cover_id = models.CharField(max_length=200)
+    publish_time = models.IntegerField(default=0)
+    insert_time = models.IntegerField(default=0)
+    page_count = models.IntegerField()
+
+    objects = ItemManager()
 
     def __str__(self):
         return self.title
@@ -20,12 +32,16 @@ class Gallery(models.Model):
 class Image(models.Model):
     gallery_id = models.CharField(max_length=200)
     image_id = models.CharField(max_length=200, null=True)
-    image_url = models.CharField(max_length=200)
     title = models.CharField(max_length=200, null=True)
     desc = models.CharField(max_length=200, null=True)
     order = models.IntegerField()
+
+    objects = ItemManager()
 
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=200)
     tag_id = models.CharField(max_length=200)
+    desc = models.CharField(max_length=200, default="")
+
+    # objects = ItemManager()
