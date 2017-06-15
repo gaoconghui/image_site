@@ -42,5 +42,5 @@ class Tag(models.Model):
     tag_name = models.CharField(max_length=200)
     tag_id = models.CharField(max_length=200)
     desc = models.CharField(max_length=200, default="")
-
+    tag_type = models.IntegerField()
     # objects = ItemManager()
