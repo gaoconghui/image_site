@@ -1,4 +1,5 @@
 # coding=utf-8 #coding:utf-8
+import datetime
 import random
 
 from django import template
@@ -107,6 +108,7 @@ image_list = [
 
 register = template.Library()
 
+
 @register.simple_tag(name="image")
 def get_image_url(image_id):
     """
@@ -117,3 +119,8 @@ def get_image_url(image_id):
     """
     url = random.choice(image_list)
     return url
+
+
+@register.simple_tag(name="time")
+def time_format(t):
+    return datetime.datetime.fromtimestamp(int(t)).strftime('%Y-%m-%d')
