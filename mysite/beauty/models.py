@@ -15,7 +15,7 @@ class ItemManager(models.Manager):
 
 
 class Gallery(models.Model):
-    gallery_id = models.CharField(max_length=200)
+    gallery_id = models.CharField(max_length=200,unique=True)
     title = models.CharField(max_length=200)
     tags = models.CharField(max_length=200, null=True)
     cover_id = models.CharField(max_length=200)
@@ -32,7 +32,6 @@ class Gallery(models.Model):
 class Image(models.Model):
     gallery_id = models.CharField(max_length=200)
     image_id = models.CharField(max_length=200, null=True)
-    title = models.CharField(max_length=200, null=True)
     desc = models.CharField(max_length=200, null=True)
     order = models.IntegerField()
 

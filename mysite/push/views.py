@@ -61,7 +61,6 @@ def save_gallery_item(data):
         Image.objects.create_item(
             gallery_id=_image.get("gallery_id", _gallery.gallery_id),
             image_id=_image['image_id'],
-            title=_image.get("title", _gallery.title),
             desc=_image.get("desc", ""),
             order=_image["order"]
         ).save()
