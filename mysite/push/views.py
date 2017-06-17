@@ -2,15 +2,18 @@
 import json
 import time
 
+from django.db import IntegrityError
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from beauty.models import Gallery, Image
+from beauty.models import Gallery, Image, Tag
 from beauty.tags_model import tag_cache
 from util.normal import ensure_unicode
 from util.pinyin import get_pinyin
 
 push_key = u"mt1994"
+all_tags = Tag.objects.all()
+all_tags = set([tag.tag_id for tag in all_tags])
 
 
 @csrf_exempt
@@ -24,8 +27,11 @@ def gallery(request):
         if key != push_key:
             result['msg'] = "not authorize"
         else:
-            result['status'] = "success"
-            save_gallery_item(received_json_data)
+            try:
+                save_gallery_item(received_json_data)
+                result['status'] = "success"
+            except IntegrityError:
+                result['msg'] = "IntegrityError"
             print received_json_data
     else:
         result['msg'] = "need post"
@@ -70,4 +76,18 @@ def save_gallery_item(data):
     # 建立tag索引
     tags_pinyin = [get_pinyin(tag) for tag in ori_gallery.get("tags", "").split(",")]
     tags_pinyin.append("all")
-    tag_cache.add_new_gallery(gallery_id=_gallery.gallery_id,tags=tags_pinyin)
+    tag_cache.add_new_gallery(gallery_id=_gallery.gallery_id, tags=tags_pinyin)
+    check_and_add_tags(ori_gallery.get("tags", "").split(","))
+
+
+def check_and_add_tags(tags):
+    for tag in tags:
+        pinyin = get_pinyin(tag)
+        if pinyin not in all_tags:
+            all_tags.add(pinyin)
+            Tag.objects.create_item(
+                tag_name=tag,
+                tag_id=pinyin,
+                tag_type=1,
+                desc=""
+            ).save()
