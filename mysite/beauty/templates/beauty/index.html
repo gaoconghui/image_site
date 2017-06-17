@@ -53,7 +53,7 @@
                 <a class="prev page-numbers" href="{% url 'beauty:hot' page_content.previous_page_number %}"><i class="fa fa-chevron-left"></i></a>
                 {% endif %}
 
-                {% for i in page_content.number|calculate_page:page_content.paginator.num_pages %}
+                {% for i in page_content.number|calculate_page:page_content.num_pages %}
                 {% if page_content.number == i %}
                 <span class='page-numbers current'>
                     <span class="meta-nav screen-reader-text">第 </span>{{ i }}<span

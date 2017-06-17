@@ -5,11 +5,11 @@ from django.shortcuts import render
 
 from beauty.models import Gallery
 from beauty.models import Image
-
+from beauty.tags_model import tag_cache
 
 def index(request, page_num=1):
     page_num = int(page_num)
-    context = {'page_content': __get_galleries_by_tag("hot", 50, page_num)}
+    context = {'page_content': __get_galleries_by_tag("all", 10, page_num)}
     return render(request, 'beauty/index.html', context)
 
 
@@ -47,11 +47,14 @@ def tag_page(request, tag_name, page_num=1):
     :param page_num: 
     :return: 
     """
-    context = {'page_content': __get_galleries_by_tag(tag_name, page_size=50, page=page_num)}
+    context = {'page_content': __get_galleries_by_tag(tag_name, page_size=5, page=page_num)}
     return render(request, 'beauty/tag_page.html', context)
 
-
 def __get_galleries_by_tag(tag, page_size, page):
-    all_gallery = Gallery.objects.order_by('publish_time')
-    p = Paginator(all_gallery, page_size)
-    return p.page(page)
+    gs = tag_cache.query_by_tag(tag=tag,page_size=page_size,number=page)
+    print gs
+    return gs
+# def __get_galleries_by_tag(tag, page_size, page):
+#     all_gallery = Gallery.objects.order_by('publish_time')
+#     p = Paginator(all_gallery, page_size)
+#     return p.page(page)

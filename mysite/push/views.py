@@ -6,7 +6,9 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from beauty.models import Gallery, Image
+from beauty.tags_model import tag_cache
 from util.normal import ensure_unicode
+from util.pinyin import get_pinyin
 
 push_key = u"mt1994"
 
@@ -64,3 +66,8 @@ def save_gallery_item(data):
             desc=_image.get("desc", ""),
             order=_image["order"]
         ).save()
+
+    # 建立tag索引
+    tags_pinyin = [get_pinyin(tag) for tag in ori_gallery.get("tags", "").split(",")]
+    tags_pinyin.append("all")
+    tag_cache.add_new_gallery(gallery_id=_gallery.gallery_id,tags=tags_pinyin)
