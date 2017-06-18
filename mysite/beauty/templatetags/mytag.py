@@ -117,7 +117,18 @@ def get_image_url(image_id):
     :param image_id: 
     :return: 
     """
-    url = random.choice(image_list)
+    url = "http://beauty07.b0.upaiyun.com/{image_id}".format(image_id=image_id)
+    return url
+
+@register.simple_tag(name="thumb")
+def get_thumb_url(image_id):
+    """
+    根据imageid 返回url
+    在内容没有传云端时，先采取随机返回image的方式
+    :param image_id: 
+    :return: 
+    """
+    url = "http://beauty07.b0.upaiyun.com/{image_id}!home".format(image_id=image_id)
     return url
 
 

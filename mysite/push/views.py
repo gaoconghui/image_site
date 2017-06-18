@@ -27,11 +27,11 @@ def gallery(request):
         if key != push_key:
             result['msg'] = "not authorize"
         else:
-            try:
-                save_gallery_item(received_json_data)
-                result['status'] = "success"
-            except IntegrityError:
-                result['msg'] = "IntegrityError"
+            # try:
+            save_gallery_item(received_json_data)
+            result['status'] = "success"
+            # except IntegrityError:
+            #     result['msg'] = "IntegrityError"
             print received_json_data
     else:
         result['msg'] = "need post"

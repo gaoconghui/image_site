@@ -28,7 +28,8 @@ class TagCache():
         :return: 
         """
         for tag in tags:
-            self.r.zadd(tag, gallery_id, int(time.time()))
+            if not self.r.zrank(tag,gallery_id):
+                self.r.zadd(tag, gallery_id, int(time.time()))
 
     def query_by_tag(self, tag, page_size, number=1):
         """
@@ -38,8 +39,6 @@ class TagCache():
         :param number: 页数，默认第一页，如果小于1则默认1，大于最大值则最后一页
         :return: list of galleries
         """
-        print number
-        print page_size
         count = self.r.zcard(tag)
         num_pages = int((count - 1) / page_size) + 1
         if number < 1:
@@ -48,7 +47,6 @@ class TagCache():
             number = num_pages
         galleries = self.r.zrange(tag, start=(number - 1) * page_size, end=number * page_size - 1)
         # TODO 必须要加cacha，不然要炸
-        print galleries
         galleries = [Gallery.objects.get(gallery_id=gid) for gid in galleries]
         return Page(page_size, number, num_pages, galleries)
 
@@ -59,11 +57,12 @@ class TagCache():
         :param count: 数量
         :return: 
         """
-        all_count = self.r.zrange(tag)
+        all_count = self.r.zcard(tag)
         start = 0
         end = 10000 if all_count > 10000 else all_count - 1
         random_list = [random.randint(start, end) for _ in range(count)]
         random_galleries = [self.r.zrange(tag, index, index)[0] for index in random_list]
+        random_galleries = [Gallery.objects.get(gallery_id=gid) for gid in random_galleries]
         return random_galleries
 
 

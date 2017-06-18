@@ -46,7 +46,8 @@
             <div class="item_title">
                 <h1> {{ gallery.title }}</h1>
                 <div class="single-cat"><span>分类:</span>
-                    <a href="http://www.sotu.la/xinggan/" rel="category tag">tag</a> / <span>发布于</span>{%time gallery.publish_time%}
+                    <a href="http://www.sotu.la/xinggan/" rel="category tag">tag</a> / <span>发布于</span>{%time
+                    gallery.publish_time%}
                 </div>
             </div>
             <div class="item_info cl">
@@ -148,112 +149,30 @@
                     </div>
                 </div>
             </div>
-            <div class="content_right_title">相关资源：<span class="single-tags">
-                    <a href="http://www.sotu.la/tag/%e6%bf%80%e6%83%85/">激情</a> /
-                    <a href="http://www.sotu.la/tag/meinv/">美女图片</a></span>
+            <div class="content_right_title">相关资源：
+                {% for r_tag in relate_tags %}
+                <span class="single-tags"><a href="{% url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}">{{ r_tag.tag_name }}</a></span>
+                {% endfor %}
             </div>
 
             <ul class="xg_content">
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/3083.html" title="黑网俏丽性感情趣熟女黑丝写真图片大全">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/1-1F12R14632.jpg_270x370" data-original=" http://img.sotu.la/img/2017/01/1-1F12R14632.jpg_270x370" width="270" height="370" alt="黑网俏丽性感情趣熟女黑丝写真图片大全" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黑网俏丽性感情趣熟女黑丝写真图片大全</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-1-30<span class="cx_like"><i
-            class="fa fa-heart"></i>27</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/3294.html" title="黑白性感女神壁纸高清大图">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/1RARTNTEN.jpg_270x370" data-original=" http://img.sotu.la/img/2017/02/1RARTNTEN.jpg_270x370" width="270" height="370" alt="黑白性感女神壁纸高清大图" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黑白性感女神壁纸高清大图</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-2-9<span class="cx_like"><i
-            class="fa fa-heart"></i>17</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/3687.html" title="黑丝诱惑黄歆苑性感丝袜美女走光图片大全">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/ASBSDH45W.jpg_270x370" data-original=" http://img.sotu.la/img/2017/02/ASBSDH45W.jpg_270x370" width="270" height="370" alt="黑丝诱惑黄歆苑性感丝袜美女走光图片大全" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黑丝诱惑黄歆苑性感丝袜美女走光图片大全</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-2-15<span class="cx_like"><i
-            class="fa fa-heart"></i>11</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/4118.html" title="黑丝美腿诱惑韩国美女朴正允制服短裙写真">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/ag5kj3ixq04.jpg_270x370" data-original=" http://img.sotu.la/img/2017/03/ag5kj3ixq04.jpg_270x370" width="270" height="370" alt="黑丝美腿诱惑韩国美女朴正允制服短裙写真" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黑丝美腿诱惑韩国美女朴正允制服短裙写真</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-3-8<span class="cx_like"><i
-            class="fa fa-heart"></i>16</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/5128.html" title="黑丝美腿巨乳翘臀性感麻辣女教师制服诱惑图片">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/f77f1413570.jpg_270x370" data-original=" http://img.sotu.la/img/2017/05/f77f1413570.jpg_270x370" width="270" height="370" alt="黑丝美腿巨乳翘臀性感麻辣女教师制服诱惑图片" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黑丝美腿巨乳翘臀性感麻辣女教师制服诱惑图片</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-5-20<span class="cx_like"><i
-            class="fa fa-heart"></i>19</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/3882.html" title="黑丝红裙驾驭自如翘臀女神欣蕾气质佳">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/B221sssss01.jpg_270x370" data-original=" http://img.sotu.la/img/2017/02/B221sssss01.jpg_270x370" width="270" height="370" alt="黑丝红裙驾驭自如翘臀女神欣蕾气质佳" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黑丝红裙驾驭自如翘臀女神欣蕾气质佳</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-2-22<span class="cx_like"><i
-            class="fa fa-heart"></i>29</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/2346.html" title="黑丝短裙人间尤物一枚SM女王黄歆苑">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/DJ7.jpg_270x370" data-original=" http://img.sotu.la/img/2017/DJ7.jpg_270x370" width="270" height="370" alt="黑丝短裙人间尤物一枚SM女王黄歆苑" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黑丝短裙人间尤物一枚SM女王黄歆苑</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-1-8<span class="cx_like"><i
-            class="fa fa-heart"></i>12</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/2305.html" title="黄香香内衣90后性感美女写真图">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/2gyoujqr2h2.jpg_270x370" data-original=" http://img.sotu.la/img/2017/2gyoujqr2h2.jpg_270x370" width="270" height="370" alt="黄香香内衣90后性感美女写真图" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黄香香内衣90后性感美女写真图</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-1-6<span class="cx_like"><i
-            class="fa fa-heart"></i>26</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/1917.html" title="黄可秀绝美身影蕾丝黑衣">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/1-1412161G607.jpg_270x370" data-original=" http://img.sotu.la/img/2016/1-1412161G607.jpg_270x370" width="270" height="370" alt="黄可秀绝美身影蕾丝黑衣" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 黄可秀绝美身影蕾丝黑衣</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2016-12-27<span class="cx_like"><i
-            class="fa fa-heart"></i>27</span></div>
-            </div>
-            </li>
-            <li class="i_list list_n2">
-            <a href="http://www.sotu.la/xinggan/4634.html" title="麻辣女教师性感女神cosplay黑丝美腿大胸写真">
-            <img class="waitpic" src="./性感诱惑迷人大胸肥臀女神玛鲁娜 - 美女图片_files/59541348578.jpg_270x370" data-original=" http://img.sotu.la/img/2017/04/59541348578.jpg_270x370" width="270" height="370" alt="麻辣女教师性感女神cosplay黑丝美腿大胸写真" style="display: inline;">
-            </a>
-            <div class="case_info">
-            <div class="meta-title"> 麻辣女教师性感女神cosplay黑丝美腿大胸写真</div>
-            <div class="meta-post"><i class="fa fa-clock-o"></i> 2017-4-16<span class="cx_like"><i
-            class="fa fa-heart"></i>21</span></div>
-            </div>
-            </li>
+                {% for gallery in relate_galleries %}
+                <li class="i_list list_n2">
+                    <a href="{% url 'beauty:gallery' _id=gallery.gallery_id page_num=1 %}" title="{{gallery.title}}">
+                        <img src="{% static 'beauty/pic/thumb_2.png' %}"
+                             data-original="{%thumb gallery.cover_id %}" width="120px"
+                             height="124px" alt="{{gallery.title}}" style="display: inline;">
+                    </a>
+                    <div class="case_info">
+                        <div class="meta-title"> {{gallery.title}}</div>
+                        <div class="meta-post"><i class="fa fa-clock-o"></i>{%time gallery.publish_time%}<span
+                                class="cx_like"><i
+                                class="fa fa-heart"></i>19</span></div>
+                    </div>
+                </li>
+                {% endfor %}
+
+
             </ul>
 
         </div>

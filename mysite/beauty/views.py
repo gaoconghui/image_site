@@ -10,6 +10,8 @@ from beauty.static_util import site_statistics, home_tags
 from beauty.tags_model import tag_cache
 from util.pinyin import get_pinyin
 
+relate_gallery_cache = {}
+
 
 def index(request, page_num=1):
     page_num = int(page_num)
@@ -22,7 +24,10 @@ def index(request, page_num=1):
 
 def gallery(request, _id, page_num=1):
     page_num = int(page_num)
-    _gallery = Gallery.objects.get(gallery_id=_id)
+    try:
+        _gallery = Gallery.objects.get(gallery_id=_id)
+    except Gallery.DoesNotExist:
+        raise Http404("Gallery does not exist")
     all_images = Image.objects.filter(gallery_id=_id)
 
     p = Paginator(all_images, 1)
@@ -31,17 +36,23 @@ def gallery(request, _id, page_num=1):
     if page_num <= 0:
         page_num = 1
     image = p.page(page_num)
+    relate_tags = __get_relate_tags([_gallery], "")
     page = {
         "prev_gallery": _id,
         "next_gallery": _id,
         "prev_page": page_num - 1 if page_num > 1 else 1,
         "next_page": page_num + 1 if page_num < p.num_pages else p.num_pages
     }
+    if _id not in relate_gallery_cache:
+        relate_gallery_cache[_id] = get_random_galleries_by_tags(relate_tags, count=10)
+    relate_galleries = relate_gallery_cache[_id]
     context = {
         "gallery": _gallery,
         "image": image,
         "page": page,
-        "page_content": __get_galleries_by_tag("tag", page_size=20, page=1)
+        "page_content": __get_galleries_by_tag("tag", page_size=20, page=1),
+        "relate_tags": relate_tags,
+        "relate_galleries": relate_galleries
     }
     return render(request, 'beauty/detail.html', __with_normal_field(context))
 
@@ -70,6 +81,16 @@ def tag_page(request, tag_name, page_num=1):
 
 def __get_galleries_by_tag(tag, page_size, page):
     return tag_cache.query_by_tag(tag=tag, page_size=page_size, number=page)
+
+
+def get_random_galleries_by_tags(tags, count):
+    # TODO 增加缓存  不一定是对这个方法加缓存，可以是对图集相关推荐的部分增加缓存
+    pre_tag_count = [count / len(tags) for _ in tags]
+    pre_tag_count[0] += count - sum(pre_tag_count)
+    result = set()
+    for index, tag in enumerate(tags):
+        result.update(set(tag_cache.get_random_top10000_by_tag(tag.get("tag_id"), pre_tag_count[index])))
+    return list(result)
 
 
 def __get_relate_tags(galleries, tag_id):
