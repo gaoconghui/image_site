@@ -24,18 +24,13 @@
 <div class="home-filter">
     <div class="h-screen-wrap">
         <ul class="h-screen">
-            <li id="menu-item-4527"><a href="/tag/%e7%be%8e%e5%a5%b3/">a</a></li>
-            <li id="menu-item-4528"><a href="/tag/%e5%86%85%e8%a1%a3/">b</a></li>
-            <li id="menu-item-4529"><a href="/tag/%e9%bb%91%e4%b8%9d/">c</a></li>
-            <li id="menu-item-4530"><a href="/tag/%e7%be%8e%e8%85%bf/">d</a></li>
-            <li id="menu-item-4531"><a href="/tag/%e7%a7%81%e6%88%bf/">e</a></li>
-            <li id="menu-item-4532"><a href="/tag/%e4%b8%9d%e8%a2%9c/">f</a></li>
-            <li id="menu-item-4533"><a href="/tag/%e6%a8%a1%e7%89%b9/">g</a></li>
-            <li id="menu-item-4534"><a href="/tag/%e5%86%85%e8%a1%a3%e4%b8%9d%e8%a2%9c/">h</a></li>
+            {% for tag in home_tags %}
+            <li ><a href="{%url 'beauty:tag_page' tag_name=tag.tag_id page_num=1%}">{{tag.tag_name}}</a></li>
+            {% endfor %}
         </ul>
     </div>
     <ul class="h-soup cl">
-        <li class="open"><i class="fa fa-coffee"></i>最近一周新增 <em>24</em> 篇文章</li>
+        <li class="open"><i class="fa fa-coffee"></i>最近一周新增 <em>{{ site_statistics.last_week_publish }}</em> 组图集</li>
     </ul>
 </div>
 <h2 class="btt mobies"><i class="fa fa-gittip" style="color: #E53A40;"></i>为您推荐 <span>给您推荐一批更精彩的</span></h2>

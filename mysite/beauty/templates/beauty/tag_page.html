@@ -5,50 +5,15 @@
 
 <div class="fl">
     <div class="fl_title">
-        <div class="fl01"> 丝袜美腿</div>
+        <div class="fl01"> {{tag.tag_name}}</div>
     </div>
     <div class="filter-wrap">
         <div class="filter-tag">
-            <div class="fl_list"><span> 标签：</span>
-                <a class="fl_link linked" href="http://www.sotu.la/siwa/">全部</a> | <a class="fl_link"
-                                                                                      href="http://www.sotu.la/siwa/?ctag=270"
-                                                                                      rel="nofollow">Beautyleg</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=173" rel="nofollow">cosplay</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=587" rel="nofollow">Dennise</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=591" rel="nofollow">Kaylar</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=647" rel="nofollow">Miki</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=257" rel="nofollow">mm</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=648" rel="nofollow">Ning</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=49" rel="nofollow">ol</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=645" rel="nofollow">Vanessa</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=558" rel="nofollow">Winnie</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=36" rel="nofollow">丝袜</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=295" rel="nofollow">丝袜性感</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=43" rel="nofollow">丝袜美女</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=276" rel="nofollow">丝袜美腿</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=305" rel="nofollow">丰满</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=512" rel="nofollow">乳美女</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=523" rel="nofollow">于大小姐</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=588" rel="nofollow">亚洲美女</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=514" rel="nofollow">人体</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=55" rel="nofollow">人体艺术</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=272" rel="nofollow">人妻</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=273" rel="nofollow">人妻诱惑</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=274" rel="nofollow">人妻透视</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=608" rel="nofollow">兔女郎</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=413" rel="nofollow">养眼</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=296" rel="nofollow">内衣</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=292" rel="nofollow">内衣丝袜</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=282" rel="nofollow">写真</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=46" rel="nofollow">写真图</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?ctag=96" rel="nofollow">写真图片</a></div>
-            <div class="fl_list" style="margin-top:10px;"><span> 排序：</span>
-                <a class="fl_link linked" href="http://www.sotu.la/siwa/?orderby=date" rel="nofollow">发布时间</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?orderby=comment_count" rel="nofollow">评论最多</a> |
-                <a class="fl_link" href="http://www.sotu.la/siwa/?orderby=views" rel="nofollow">浏览数量</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?orderby=zan" rel="nofollow">点赞最多</a> | <a
-                        class="fl_link" href="http://www.sotu.la/siwa/?orderby=rand" rel="nofollow">随机排序</a>
-            </div>
+            <div class="fl_list"><span> 为你推荐：</span>
+                <a class="fl_link linked" href="{%url 'beauty:tag_page' tag_name=tag.tag_id page_num=1 %}">{{ tag.tag_name }}</a> |
+                {% for r_tag in relate_tags%}
+                <a class="fl_link" href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1%}" rel="nofollow">{{ r_tag.tag_name }}</a> |
+                {% endfor %}
         </div>
     </div>
 </div>
@@ -59,29 +24,61 @@
 
         {% include "beauty/component/gallery_view.html" %}
 
+
+        {% load filters %}
         <nav class="navigation pagination" role="navigation">
             <h2 class="screen-reader-text">文章导航</h2>
-            <div class="nav-links"><span class="page-numbers current"><span
-                    class="meta-nav screen-reader-text">第 </span>1<span
-                    class="meta-nav screen-reader-text"> 页</span></span>
-                <a class="page-numbers" href="http://www.sotu.la/siwa/page_2.html"><span
-                        class="meta-nav screen-reader-text">第 </span>2<span
-                        class="meta-nav screen-reader-text"> 页</span></a>
-                <a class="page-numbers" href="http://www.sotu.la/siwa/page_3.html"><span
-                        class="meta-nav screen-reader-text">第 </span>3<span
-                        class="meta-nav screen-reader-text"> 页</span></a>
-                <a class="page-numbers" href="http://www.sotu.la/siwa/page_4.html"><span
-                        class="meta-nav screen-reader-text">第 </span>4<span
-                        class="meta-nav screen-reader-text"> 页</span></a>
-                <a class="page-numbers" href="http://www.sotu.la/siwa/page_5.html"><span
-                        class="meta-nav screen-reader-text">第 </span>5<span
-                        class="meta-nav screen-reader-text"> 页</span></a>
-                <a class="page-numbers" href="http://www.sotu.la/siwa/page_6.html"><span
-                        class="meta-nav screen-reader-text">第 </span>6<span
-                        class="meta-nav screen-reader-text"> 页</span></a>
-                <a class="next page-numbers" href="http://www.sotu.la/siwa/page_2.html"><i
-                        class="fa fa-chevron-right"></i></a></div>
+            <div class="nav-links">
+                {% if page_content.has_previous %}
+                <a class="prev page-numbers" href="{% url 'beauty:tag_page' tag_name=tag.tag_id page_num=page_content.previous_page_number %}"><i class="fa fa-chevron-left"></i></a>
+                {% endif %}
+
+                {% for i in page_content.number|calculate_page:page_content.num_pages %}
+                {% if page_content.number == i %}
+                <span class='page-numbers current'>
+                    <span class="meta-nav screen-reader-text">第 </span>{{ i }}<span
+                        class="meta-nav screen-reader-text"> 页</span></span>
+                {% elif i == -1 %}
+                <span class="page-numbers dots">…</span>
+                {% else %}
+                <a class='page-numbers' href="{% url 'beauty:tag_page' tag_name=tag.tag_id page_num=i %}"><span
+                        class="meta-nav screen-reader-text">第 </span>
+                    {{ i }} <span
+                            class="meta-nav screen-reader-text"> 页</span></a>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_content.has_next %}
+                <a class="next page-numbers" href="{% url 'beauty:tag_page' tag_name=tag.tag_id page_num=page_content.next_page_number %}"><i
+                        class="fa fa-chevron-right"></i></a>
+                {% endif %}
+            </div>
         </nav>
+
+
+        <!--<nav class="navigation pagination" role="navigation">-->
+            <!--<h2 class="screen-reader-text">文章导航</h2>-->
+            <!--<div class="nav-links"><span class="page-numbers current"><span-->
+                    <!--class="meta-nav screen-reader-text">第 </span>1<span-->
+                    <!--class="meta-nav screen-reader-text"> 页</span></span>-->
+                <!--<a class="page-numbers" href="http://www.sotu.la/siwa/page_2.html"><span-->
+                        <!--class="meta-nav screen-reader-text">第 </span>2<span-->
+                        <!--class="meta-nav screen-reader-text"> 页</span></a>-->
+                <!--<a class="page-numbers" href="http://www.sotu.la/siwa/page_3.html"><span-->
+                        <!--class="meta-nav screen-reader-text">第 </span>3<span-->
+                        <!--class="meta-nav screen-reader-text"> 页</span></a>-->
+                <!--<a class="page-numbers" href="http://www.sotu.la/siwa/page_4.html"><span-->
+                        <!--class="meta-nav screen-reader-text">第 </span>4<span-->
+                        <!--class="meta-nav screen-reader-text"> 页</span></a>-->
+                <!--<a class="page-numbers" href="http://www.sotu.la/siwa/page_5.html"><span-->
+                        <!--class="meta-nav screen-reader-text">第 </span>5<span-->
+                        <!--class="meta-nav screen-reader-text"> 页</span></a>-->
+                <!--<a class="page-numbers" href="http://www.sotu.la/siwa/page_6.html"><span-->
+                        <!--class="meta-nav screen-reader-text">第 </span>6<span-->
+                        <!--class="meta-nav screen-reader-text"> 页</span></a>-->
+                <!--<a class="next page-numbers" href="http://www.sotu.la/siwa/page_2.html"><i-->
+                        <!--class="fa fa-chevron-right"></i></a></div>-->
+        <!--</nav>-->
     </div>
 </div>
 {% include "beauty/component/masonry.html" %}

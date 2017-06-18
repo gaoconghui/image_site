@@ -4,6 +4,7 @@ from pypinyin import lazy_pinyin
 
 from util.normal import ensure_unicode
 
+cache = {}
 
 def get_pinyin_list(s):
     s = ensure_unicode(s)
@@ -11,7 +12,9 @@ def get_pinyin_list(s):
 
 
 def get_pinyin(s):
-    return "".join(get_pinyin_list(s))
+    if s not in cache.keys():
+        cache[s] = "".join(get_pinyin_list(s))
+    return cache[s]
 
 
 if __name__ == "__main__":

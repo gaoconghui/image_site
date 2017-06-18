@@ -1,21 +1,23 @@
 <div class="foot" id="footer">
     <div class="foot_list">
         <div class="foot_num">
-            <div>文章总数</div>
-            <div style="position: relative;">1904+</div>
+            <div>图集数量</div>
+            <div style="position: relative;">{{ site_statistics.num_gallery }}+</div>
         </div>
         <div class="foot_num">
-            <div>评论总数</div>
-            <div>12+</div>
+            <div>图片数量</div>
+            <div>{{ site_statistics.num_image }}+</div>
         </div>
         <div class="foot_num">
-            <div>专题栏目</div>
-            <div>6+</div>
+            <div>总标签数</div>
+            <div>
+                {{ site_statistics.num_tag }}+
+            </div>
         </div>
         <div class="foot_num">
             <div>运营天数</div>
             <div>
-                169+
+                {{ site_statistics.running_time }}+
             </div>
         </div>
     </div>
