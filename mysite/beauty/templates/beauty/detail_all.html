@@ -1,0 +1,171 @@
+{% extends "beauty/component/base.html" %}
+
+{% block mainbody %}
+{% load static %}
+{% load mytag %}
+
+<div class="main">
+    <div class="main_inner">
+        <div class="main_left">
+            <div class="item_title">
+                <h1> {{ gallery.title }}</h1>
+                <div class="single-cat"><span>发布于</span>{%time gallery.publish_time%}
+                </div>
+            </div>
+            <div class="item_info cl">
+                <div style="float:left;">
+                    <i class="fa fa-eye"></i> <span class="cx-views">167</span> 人气 /
+                    <i class="fa fa-comment"></i> <span><a
+                        href="http://www.sotu.la/xinggan/5392.html#respond">0</a></span> 评论
+                </div>
+                <div class="post_au">
+                    <a href="{%url 'beauty:gallery' _id=gallery.gallery_id page_num=1 %}"><i class="fa fa-television"
+                                                                      style="margin-right:3px;"></i>单图模式</a></div>
+            </div>
+            <div class="content" id="content">
+                <div class="content_left"><font color="#FF0000">图集介绍</font>:{{image.0.desc}}
+
+                    {% for img in image%}
+                    <img src="{% static 'beauty/pic/thumb_2.png' %}" data-original="{%image img.image_id %}"
+                         alt="{{img.title}}" style="display: block;">
+                    {% endfor %}
+
+
+                    <div class="tag cl" style="margin-top:30px;">
+                        <span class="dtpost-like cl">
+<a href="javascript:;" data-action="ding" data-id="5392" class="favorite">
+<i class="fa fa-thumbs-up"></i>
+<span class="count">
+<em class="ct_ding" style="color: #F58282;">20</em>个赞
+</span>
+                        </a>
+
+                        <a class="share-btn collect collect-no" nonce="3ea59723" style="cursor:default;"
+                           title="你必须注册并登录才能收藏">
+                            <i class="fa fa-star"></i>
+                            <span class="count">收藏</span>
+                        </a>
+
+                        <a class="share-fx" href="javascript:;">
+                            <i class="fa fa-share-alt"></i>
+                            <span class="count">分享</span>
+                        </a>
+                        </span>
+
+                        <div class="myshare cl">
+                            <ul class="-mob-share-list">
+                                <li class="-mob-share-qq"></li>
+                                <li class="-mob-share-qzone"></li>
+                                <li class="-mob-share-weixin"></li>
+                                <li class="-mob-share-weibo"></li>
+                                <li class="-mob-share-renren"></li>
+                                <li class="-mob-share-douban"></li>
+                            </ul>
+                        </div>
+
+                         <div class="nav-links page_imges">
+                            <a href="{%url 'beauty:gallery_more' _id=page.prev_gallery page_num=page.prev_page %}"
+                               class="page-numbers next" title="上一页">
+                                <i class="fa fa-chevron-left"></i>
+                            </a>
+                            {% load filters %}
+                            {% for i in image.number|calculate_page:image.paginator.num_pages %}
+                            {% if image.number == i %}
+                            <span class="page-numbers current">
+                                        <span class="meta-nav screen-reader-text">第 </span>{{i}} <span
+                                    class="meta-nav screen-reader-text"> 页</span>
+                                    </span>
+                            {% elif i == -1 %}
+                            <em>... </em>
+                            {% else %}
+                            <a class="page-numbers" href="{%url 'beauty:gallery_more' _id=gallery.gallery_id page_num=i %}"
+                               title="第 {{i}} 页">{{i}}</a>
+                            {% endif %}
+                            {% endfor %}
+
+
+                            <a href="{%url 'beauty:gallery_more' _id=page.next_gallery page_num=page.next_page %}"
+                               class="page-numbers prev" title="下一页">
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_right_title">相关资源：
+                {% for r_tag in relate_tags %}
+                <span class="single-tags"><a href="{% url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}">{{ r_tag.tag_name }}</a></span>
+                {% endfor %}
+            </div>
+
+            <ul class="xg_content">
+                {% for gallery in relate_galleries %}
+                <li class="i_list list_n2">
+                    <a href="{% url 'beauty:gallery_more' _id=gallery.gallery_id page_num=1 %}" title="{{gallery.title}}">
+                        <img src="{% static 'beauty/pic/thumb_2.png' %}"
+                             data-original="{%thumb gallery.cover_id %}" width="120px"
+                             height="124px" alt="{{gallery.title}}" style="display: inline;">
+                    </a>
+                    <div class="case_info">
+                        <div class="meta-title"> {{gallery.title}}</div>
+                        <div class="meta-post"><i class="fa fa-clock-o"></i>{%time gallery.publish_time%}<span
+                                class="cx_like"><i
+                                class="fa fa-heart"></i>19</span></div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="main_right sidebar">
+            <div class="widget widget_text">
+                <h3>推荐美图</h3>
+                <ul class="textwidget">
+                    <li><a href="http://www.sotu.la/qingchun/4394.html" target="_blank">学生制服装户嫩妹子粉色外写真</a></li>
+                    <li><a href="http://www.sotu.la/siwa/4390.html" target="_blank">劲爆美女诱惑私房黑丝翘臀长腿性感照片</a></li>
+                    <li><a href="http://www.sotu.la/siwa/4386.html" target="_blank">性感尤物风情万种蕾丝内衣性感美女大尺度诱惑写真</a></li>
+                    <li><a href="http://www.sotu.la/siwa/4174.html" target="_blank">黑丝诱惑性感美女Evelyn艾莉情趣睡衣写真</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/4170.html" target="_blank">性感女神佟蔓内衣性感写真身材火辣诱人</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/4168.html" target="_blank">美女酥胸诱人嫩模赵小米性感制贩写真</a></li>
+                    <li><a href="http://www.sotu.la/juqing/4015.html" target="_blank">大唐荣耀分集剧情介绍 第58集</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/4002.html" target="_blank">丰满迷人日本美女性感内衣写真美女图片</a></li>
+                    <li><a href="http://www.sotu.la/qingchun/4000.html" target="_blank">唯美迷人清纯少女户外短裙写真图片</a></li>
+                    <li><a href="http://www.sotu.la/qingchun/3998.html" target="_blank">长发美女抹胸短裙写真清纯高清写真图片</a></li>
+                    <li><a href="http://www.sotu.la/qingchun/3996.html" target="_blank">白嫩迷人清纯少女冬季唯美写真图片</a></li>
+                    <li><a href="http://www.sotu.la/qingchun/3604.html" target="_blank">酥胸诱人白皙少女私房性感写真</a></li>
+                    <li><a href="http://www.sotu.la/mote/2694.html" target="_blank">美臀诱人日本美女秋山莉奈泳衣写真</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2692.html" target="_blank">[TouTiao头条女神]火辣诱人美女飞飞情趣内衣写真</a>
+                    </li>
+                    <li><a href="http://www.sotu.la/siwa/2650.html" target="_blank">美女美腿性感撩人性感秘书肉丝图片</a></li>
+                    <li><a href="http://www.sotu.la/siwa/2644.html" target="_blank">白色丝袜清纯性感学生妹美女图片</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2642.html" target="_blank">极品制服诱惑性感护士美女图片展极致身材</a></li>
+                    <li><a href="http://www.sotu.la/mote/2640.html" target="_blank">美女嫩模马晨熙私房写真可爱迷人</a></li>
+                    <li><a href="http://www.sotu.la/mote/2638.html" target="_blank">模特Winnie豹纹诱惑超级性感美腿丝袜激情秀</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2636.html" target="_blank">性感美眉图片半裸美乳诱惑难挡</a></li>
+                    <li><a href="http://www.sotu.la/qingchun/2634.html" target="_blank">日本萌系清纯性感女孩图片写真合辑</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2629.html" target="_blank">佳苗瑠华私房日本女优内衣写真</a></li>
+                    <li><a href="http://www.sotu.la/mote/2627.html" target="_blank">性感女神美臀诱人宋梓诺丁字裤写真</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2625.html" target="_blank">精选图片诱惑十足高清丰满性感美臀美女</a></li>
+                    <li><a href="http://www.sotu.la/siwa/2623.html" target="_blank">美女性感老师的黑丝诱惑销魂勾人图片</a></li>
+                    <li><a href="http://www.sotu.la/mote/2621.html" target="_blank">美女性感写真美乳诱惑张蓝欣私房</a></li>
+                    <li><a href="http://www.sotu.la/mote/2619.html" target="_blank">极品性感车模晓艺诱惑图片</a></li>
+                    <li><a href="http://www.sotu.la/mingxing/2615.html" target="_blank">性感女主播韩国金荷娜高清图片合辑</a></li>
+                    <li><a href="http://www.sotu.la/siwa/2613.html" target="_blank">性感写真制服诱惑黑丝美女私房</a></li>
+                    <li><a href="http://www.sotu.la/siwa/2611.html" target="_blank">妮婉Belinda性感空姐惊人服务图片</a></li>
+                    <li><a href="http://www.sotu.la/siwa/2609.html" target="_blank">黑丝高跟写真美腿诱惑美女模特</a></li>
+                    <li><a href="http://www.sotu.la/siwa/2607.html" target="_blank">抹胸短裙写真黑丝翘臀迷人美女腿模</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2605.html" target="_blank">唯美写真清新脱俗治愈系美女私房</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2603.html" target="_blank">私房清纯写真恬静迷人短裙少女</a></li>
+                    <li><a href="http://www.sotu.la/qingchun/2601.html" target="_blank">户外甜美写真笑颜迷人清纯少女</a></li>
+                    <li><a href="http://www.sotu.la/qingchun/2599.html" target="_blank">性感学生妹妹诱惑精选高清组图</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2597.html" target="_blank">性感秘书制服诱惑火辣写真高清美女</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2595.html" target="_blank">白色连裤袜图片火辣无比性感女孩</a></li>
+                    <li><a href="http://www.sotu.la/xinggan/2593.html" target="_blank">美女杉原杏璃甜美诱惑极品性感女仆图集</a></li>
+                    <li><a href="http://www.sotu.la/mote/2591.html" target="_blank">美女模特星乃まおり制服性感写真</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cbbfixed" style="bottom: 10px;"><a class="gotop cbbtn"><i class="fa fa-angle-up"></i></a></div>
+{% endblock %}

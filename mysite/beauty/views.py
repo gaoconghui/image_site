@@ -23,6 +23,16 @@ def index(request, page_num=1):
 
 
 def gallery(request, _id, page_num=1):
+    context = gen_gallery(request, _id, page_num=page_num, page_size=1)
+    return render(request, 'beauty/detail.html', __with_normal_field(context))
+
+
+def gallery_more(request, _id, page_num):
+    context = gen_gallery(request, _id, page_num=page_num, page_size=5)
+    return render(request, 'beauty/detail_all.html', __with_normal_field(context))
+
+
+def gen_gallery(request, _id, page_num=1, page_size=1):
     page_num = int(page_num)
     try:
         _gallery = Gallery.objects.get(gallery_id=_id)
@@ -30,7 +40,7 @@ def gallery(request, _id, page_num=1):
         raise Http404("Gallery does not exist")
     all_images = Image.objects.filter(gallery_id=_id)
 
-    p = Paginator(all_images, 1)
+    p = Paginator(all_images, page_size)
     if page_num > p.num_pages:
         page_num = p.num_pages
     if page_num <= 0:
@@ -54,16 +64,16 @@ def gallery(request, _id, page_num=1):
         "relate_tags": relate_tags,
         "relate_galleries": relate_galleries
     }
-    return render(request, 'beauty/detail.html', __with_normal_field(context))
+    return context
 
 
 def tag_page(request, tag_name, page_num=1):
     """
     TODO 需要改为从reids读取tag下的gallery
-    :param request: 
-    :param tag_name: 
-    :param page_num: 
-    :return: 
+    :param request:
+    :param tag_name:
+    :param page_num:
+    :return:
     """
     page_num = int(page_num)
     try:

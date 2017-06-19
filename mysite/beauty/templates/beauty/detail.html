@@ -4,61 +4,22 @@
 {% load static %}
 {% load mytag %}
 
-<div class="index_header nav_headertop">
-    <div class="header_inner">
-        <div class="logo">
-            <a href="http://localhost/"><img src="{% static 'beauty/pic/logo.pbg' %}" alt="美女图片"></a>
-        </div>
-        <div class="header_menu">
-            <ul>
-                <li id="menu-item-389"
-                    class="megamenu toke current-post-ancestor current-menu-parent current-post-parent"><a
-                        href="{% url 'beauty:tag_page' tag_name='xinggan' page_num=1 %}">taga</a></li>
-                <li id="menu-item-390" class="megamenu toke"><a
-                        href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">tagb</a></li>
-                <li id="menu-item-388" class="megamenu toke"><a
-                        href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">tagc</a></li>
-                <li id="menu-item-437" class="megamenu toke"><a
-                        href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">tagd</a></li>
-                <li id="menu-item-396" class="megamenu toke"><a
-                        href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">tage</a></li>
-                <li id="menu-item-3557" class="megamenu toke"><a
-                        href="{% url 'beauty:tag_page' tag_name='renti' page_num=1 %}">tagf</a></li>
-            </ul>
-        </div>
-        <div class="login_text pc" style="padding-top: 25px;padding-bottom: 20px;">
-        </div>
-        <div class="login_text mobie">
-            <a href="javascript:;" class="slide-menu"><i class="fa fa-list-ul"></i></a>
-        </div>
-        <div class="header_search_bar">
-            <form action="http://www.sotu.la/">
-                <button class="search_bar_btn" type="submit"><i class="fa fa-search"></i></button>
-                <input class="search_bar_input" type="text" name="s" placeholder="输入关键字">
-            </form>
-        </div>
-    </div>
-</div>
-
 <div class="main">
     <div class="main_inner">
         <div class="main_left" style="width:100%">
             <div class="item_title">
                 <h1> {{ gallery.title }}</h1>
-                <div class="single-cat"><span>分类:</span>
-                    <a href="http://www.sotu.la/xinggan/" rel="category tag">tag</a> / <span>发布于</span>{%time
-                    gallery.publish_time%}
+                <div class="single-cat"><span>发布于</span>{%time gallery.publish_time%}
                 </div>
             </div>
             <div class="item_info cl">
                 <div style="float:left;">
-                    <i class="fa fa-eye"></i> <span class="cx-views">1</span> 人气 /
-                    <i class="fa fa-comment"></i> <span><a
-                        href="http://www.sotu.la/xinggan/5392.html#respond">0</a></span> 评论
+                    <i class="fa fa-eye"></i> <span class="cx-views">1</span> 人气
+
                 </div>
                 <div class="post_au">
-                    <a href="http://www.sotu.la/xinggan/5392-all.html"><i class="fa fa-th-large"
-                                                                          style="margin-right:3px;"></i>查看全部</a></div>
+                    <a href="{%url 'beauty:gallery_more' _id=gallery.gallery_id page_num=1 %}"><i class="fa fa-th-large"
+                                                                          style="margin-right:3px;"></i>多图模式</a></div>
             </div>
             <div class="content" id="content">
                 <div class="content_left"><font color="#FF0000">图集介绍</font>:{{ image.0.desc }}
@@ -171,8 +132,6 @@
                     </div>
                 </li>
                 {% endfor %}
-
-
             </ul>
 
         </div>

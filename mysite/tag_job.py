@@ -44,5 +44,19 @@ def add_gallery_to_tag(gallery_id,tag):
     print "add tag " + tag_pinyin
     tag_cache.add_new_gallery(gallery_id=gallery_id, tags=[tag_pinyin])
 
+def init_redis_tag():
+    """
+    应该只在第一次启动的时候使用，会扫gallery表，在redis里建立索引
+    :return:
+    """
+    for index,gallery in enumerate(Gallery.objects.all()):
+        print index
+        gid = gallery.gallery_id
+        print "process " + gid
+        tags = set(gallery.tags.split(","))
+        for n_tag in tags:
+            add_gallery_to_tag(gid,n_tag)
+        add_gallery_to_tag(gid,"all")
+
 if __name__ == '__main__':
-    rebuild_tags()
+    init_redis_tag()
