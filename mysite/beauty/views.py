@@ -1,4 +1,5 @@
 # coding=utf-8 #coding:utf-8
+import random
 
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -11,7 +12,7 @@ from beauty.tags_model import tag_cache
 from util.pinyin import get_pinyin
 
 relate_gallery_cache = {}
-
+all_tags = list(Tag.objects.all())
 
 def index(request, page_num=1):
     page_num = int(page_num)
@@ -32,6 +33,14 @@ def gallery_more(request, _id, page_num):
     return render(request, 'beauty/detail_all.html', __with_normal_field(context))
 
 
+def __get_random_tag(count):
+    """
+    随机返回若干个tag
+    """
+    random.shuffle(all_tags)
+    return all_tags[:count]
+
+
 def gen_gallery(request, _id, page_num=1, page_size=1):
     page_num = int(page_num)
     try:
@@ -47,23 +56,25 @@ def gen_gallery(request, _id, page_num=1, page_size=1):
         page_num = 1
     image = p.page(page_num)
     relate_tags = __get_relate_tags([_gallery], "")
+    if _id not in relate_gallery_cache:
+        relate_gallery_cache[_id] = get_random_galleries_by_tags(relate_tags, count=20)
+    relate_galleries = relate_gallery_cache[_id]
     page = {
         "prev_gallery": _id,
-        "next_gallery": _id,
+        "next_gallery": _id if page_num < p.num_pages else random.choice(relate_galleries).gallery_id,
         "prev_page": page_num - 1 if page_num > 1 else 1,
-        "next_page": page_num + 1 if page_num < p.num_pages else p.num_pages
+        "next_page": page_num + 1 if page_num < p.num_pages else 1
     }
-    if _id not in relate_gallery_cache:
-        relate_gallery_cache[_id] = get_random_galleries_by_tags(relate_tags, count=10)
-    relate_galleries = relate_gallery_cache[_id]
     context = {
         "gallery": _gallery,
         "image": image,
         "page": page,
         "page_content": __get_galleries_by_tag("tag", page_size=20, page=1),
         "relate_tags": relate_tags,
+        "tags_cloud" : relate_tags + __get_random_tag(15-len(relate_tags)),
         "relate_galleries": relate_galleries
     }
+    random.shuffle(context['tags_cloud'])
     return context
 
 

@@ -65,14 +65,6 @@
                             </a>
                         </div>
                     </div>
-                    <script type="text/javascript">
-                        window.onload = function () {
-                            setTimeout(function () {
-                                new Image().src = " http://img.sotu.la/img/2017/05/f5041444882.jpg";
-                                new Image().src = " http://img.sotu.la/img/2017/05/f5041444883.jpg";
-                            }, 1000);
-                        };
-                    </script>
                     <div class="tag cl" style="margin-top:30px;">
                             <span class="dtpost-like cl">
 <a href="javascript:;" data-action="ding" data-id="5392" class="favorite">
@@ -106,7 +98,7 @@
                         </div>
 
                         <div class="post_hyh">
-                            <a href="http://www.sotu.la/xinggan/5394.html">换一篇</a></div>
+                            <a href="{%url 'beauty:gallery' _id=relate_galleries.0.gallery_id page_num=1 %}">换一篇</a></div>
                     </div>
                 </div>
             </div>
@@ -117,7 +109,7 @@
             </div>
 
             <ul class="xg_content">
-                {% for gallery in relate_galleries %}
+                {% for gallery in relate_galleries|slice:":10" %}
                 <li class="i_list list_n2">
                     <a href="{% url 'beauty:gallery' _id=gallery.gallery_id page_num=1 %}" title="{{gallery.title}}">
                         <img src="{% static 'beauty/pic/thumb_2.png' %}"
