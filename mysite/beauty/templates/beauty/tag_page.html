@@ -3,27 +3,30 @@
 {% block mainbody %}
 {% load static %}
 
+{% if tag.desc %}
 <div class="cat_bg">
     <div class="cat_bg_img" style="background-image:url(http://b.chenxingweb.com/cxudy/cat/cat_qingchun_8_3.png);">
         <p>
             <span style="font-size: 18px;color: #F14141;font-weight: 600;">
-                <i class="fa fa-paper-plane"></i>  清纯美女
+                <i class="fa fa-paper-plane"></i>  {{ tag.tag_name }}
             </span><br/>
-            提起清纯美女总会让人想起学生时代那一张张美丽精致的面孔，在这里欣赏美图仿佛回到了那个青春依旧属于我们的青涩时代。
+            {{ tag.desc }}
         </p>
     </div>
 </div>
-
-
 <div class="fl flbg">
+{%else%}<div class="fl">
+{%endif%}
+
+
     <div class="fl_title">
         <div class="fl01"> {{tag.tag_name}}</div>
     </div>
     <div class="filter-wrap">
         <div class="filter-tag">
             <div class="fl_list"><span> 为你推荐：</span>
-                <a class="fl_link linked" href="{%url 'beauty:tag_page' tag_name=tag.tag_id page_num=1 %}">{{
-                    tag.tag_name }}</a> |
+                <a class="fl_link linked" href="{%url 'beauty:tag_page' tag_name=tag.tag_id page_num=1 %}">
+                    {{ tag.tag_name }}</a> |
                 {% for r_tag in relate_tags%}
                 <a class="fl_link" href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1%}" rel="nofollow">
                     {{ r_tag.tag_name }}</a> |

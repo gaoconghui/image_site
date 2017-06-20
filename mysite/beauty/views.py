@@ -9,6 +9,7 @@ from beauty.models import Gallery, Tag
 from beauty.models import Image
 from beauty.static_util import site_statistics, home_tags
 from beauty.tags_model import tag_cache
+from beauty.view_counter import view_counter
 from util.pinyin import get_pinyin
 
 relate_gallery_cache = {}
@@ -42,6 +43,7 @@ def __get_random_tag(count):
 
 
 def gen_gallery(request, _id, page_num=1, page_size=1):
+    view_counter.click(_id)
     page_num = int(page_num)
     try:
         _gallery = Gallery.objects.get(gallery_id=_id)

@@ -3,6 +3,8 @@
 
 from django import template
 
+from beauty.view_counter import view_counter
+
 register = template.Library()
 
 
@@ -33,3 +35,4 @@ def calculate_page(current_page, total_page):
         result.append(-1)
     result.append(total_page)
     return result
+
