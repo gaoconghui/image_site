@@ -104,8 +104,8 @@
                     <a href="{% url 'beauty:gallery_more' _id=gallery.gallery_id page_num=1 %}"
                        title="{{gallery.title}}">
                         <img src="{% static 'beauty/pic/thumb_2.png' %}"
-                             data-original="{%thumb gallery.cover_id %}" width="120px"
-                             height="124px" alt="{{gallery.title}}" style="display: inline;">
+                             data-original="{%thumb gallery.cover_id %}" width="270"
+                             height="370" alt="{{gallery.title}}" style="display: inline;">
                     </a>
                     <div class="case_info">
                         <div class="meta-title"> {{gallery.title}}</div>
@@ -137,7 +137,7 @@
                         {%else%}
                     <li>
                         {%endif%}
-                        <a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="qq">{{r_tag.tag_name}}</a>
+                        <a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="{{r_tag.tag_name}}">{{r_tag.tag_name}}</a>
                     </li>
                     {% endfor %}
                 </ul>

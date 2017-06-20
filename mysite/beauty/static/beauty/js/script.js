@@ -1,12 +1,3 @@
-function refresh_masonry() {
-    if (beauty.need_masonry) {
-        $('#container').masonry({
-            // options
-            itemSelector: '.i_list',
-            resize: true
-        });
-    }
-}
 
 !function (a, b, c, d) {
     var e = a(b);
@@ -19,7 +10,6 @@ function refresh_masonry() {
                     if (++b > j.failure_limit)return !1
                 } else c.trigger("appear"), b = 0
             });
-            refresh_masonry()
         }
 
         var h, i = this, j = {
@@ -54,7 +44,6 @@ function refresh_masonry() {
                             j.load.call(b, f, j)
                         }
                     }).attr("src", c.attr("data-" + j.data_attribute))
-                    refresh_masonry()
                 }
             }), 0 !== j.event.indexOf("scroll") && c.bind(j.event, function () {
                 b.loaded || c.trigger("appear")

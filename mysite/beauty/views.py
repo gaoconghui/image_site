@@ -93,7 +93,7 @@ def tag_page(request, tag_name, page_num=1):
         tag = Tag.objects.get(tag_id=tag_name)
     except Tag.DoesNotExist:
         raise Http404("Poll does not exist")
-    galleries = __get_galleries_by_tag(tag_name, page_size=5, page=page_num)
+    galleries = __get_galleries_by_tag(tag_name, page_size=20, page=page_num)
     context = {
         'page_content': galleries,
         'tag': tag,
