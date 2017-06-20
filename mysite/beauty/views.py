@@ -15,6 +15,7 @@ from util.pinyin import get_pinyin
 relate_gallery_cache = {}
 all_tags = list(Tag.objects.all())
 
+
 def index(request, page_num=1):
     page_num = int(page_num)
     context = {
@@ -73,7 +74,7 @@ def gen_gallery(request, _id, page_num=1, page_size=1):
         "page": page,
         "page_content": __get_galleries_by_tag("tag", page_size=20, page=1),
         "relate_tags": relate_tags,
-        "tags_cloud" : relate_tags + __get_random_tag(15-len(relate_tags)),
+        "tags_cloud": relate_tags + __get_random_tag(15 - len(relate_tags)),
         "relate_galleries": relate_galleries
     }
     random.shuffle(context['tags_cloud'])
@@ -136,3 +137,11 @@ def __with_normal_field(context):
     """
     context['site_statistics'] = site_statistics()
     return context
+
+
+def handler404(request):
+    return render(request, 'beauty/404.html', status=404)
+
+
+def handler500(request):
+    return render(request, 'beauty/500.html', status=500)

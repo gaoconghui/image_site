@@ -1,5 +1,5 @@
 from django.conf.urls import url
-
+from django.conf import urls
 from . import views
 
 app_name = 'beauty'
@@ -13,3 +13,9 @@ urlpatterns = [
     url(r'^(?P<tag_name>\w+)/(?P<page_num>\d+)/$', views.tag_page, name='tag_page'),
     # url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]
+
+urls.handler404 = views.handler404
+urls.handler400 = views.handler404
+urls.handler403 = views.handler404
+urls.handler500 = views.handler404
+
