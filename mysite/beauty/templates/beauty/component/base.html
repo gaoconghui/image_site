@@ -3,10 +3,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>images</title>
-    <meta name="keywords" content="key words"/>
-    <meta name="description"
-          content="desc"/>
+    {% if seo %}
+    <title>{{ seo.title }}</title>
+    <meta name="keywords" content="{{ seo.keywords }}"/>
+    <meta name="description" content="{{ seo.desc }}"/>
+    {% else %}
+    <title>妹子吧 - meizibar.com</title>>
+    {% endif %}
     <link rel="stylesheet" id='style-css' type="text/css" href="{% static 'beauty/css/main.css' %}" media='all'/>
     <link rel="stylesheet" id='font-awesome-css' type="text/css" href="{% static 'beauty/css/font-awesome.min.css' %}"
           media='all'/>
@@ -16,9 +19,6 @@
             "ajax_url": "http:\/\/localhost\/wp-admin\/admin-ajax.php",
             "home_url": "\/"
         };
-        var beauty = {
-            "need_masonry": false
-        }
     </script>
     <!--[if lt IE 9]>
     <!--<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>-->

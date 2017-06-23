@@ -22,17 +22,17 @@ def index(request, page_num=1):
         'page_content': __get_galleries_by_tag("all", 10, page_num),
         'home_tags': home_tags()
     }
-    return render(request, 'beauty/index.html', __with_normal_field(context))
+    return render(request, 'beauty/index.html', __with_index_seo(__with_normal_field(context)))
 
 
 def gallery(request, _id, page_num=1):
     context = gen_gallery(request, _id, page_num=page_num, page_size=1)
-    return render(request, 'beauty/detail.html', __with_normal_field(context))
+    return render(request, 'beauty/detail.html', __with_gallery_seo(__with_normal_field(context)))
 
 
 def gallery_more(request, _id, page_num):
     context = gen_gallery(request, _id, page_num=page_num, page_size=5)
-    return render(request, 'beauty/detail_all.html', __with_normal_field(context))
+    return render(request, 'beauty/detail_all.html', __with_gallery_seo(__with_normal_field(context)))
 
 
 def __get_random_tag(count):
@@ -72,7 +72,6 @@ def gen_gallery(request, _id, page_num=1, page_size=1):
         "gallery": _gallery,
         "image": image,
         "page": page,
-        "page_content": __get_galleries_by_tag("tag", page_size=20, page=1),
         "relate_tags": relate_tags,
         "tags_cloud": relate_tags + __get_random_tag(15 - len(relate_tags)),
         "relate_galleries": relate_galleries
@@ -100,7 +99,7 @@ def tag_page(request, tag_name, page_num=1):
         'tag': tag,
         'relate_tags': __get_relate_tags(galleries, tag_name)
     }
-    return render(request, 'beauty/tag_page.html', __with_normal_field(context))
+    return render(request, 'beauty/tag_page.html', __with_tag_seo(__with_normal_field(context)))
 
 
 def __get_galleries_by_tag(tag, page_size, page):
@@ -136,6 +135,42 @@ def __with_normal_field(context):
     :return: 
     """
     context['site_statistics'] = site_statistics()
+    return context
+
+
+def __with_index_seo(context):
+    seo = {
+        "title": u"meizibar 妹子吧 - 清纯性感清新甜美萌妹子 高清大图欣赏",
+        "keywords": u"meizi，妹子图，美女，美女图片，清纯，性感",
+        "desc": u"meizibar 妹子吧，收集精美的妹子图片，上百种分类，包括性感可爱清纯，运动校花美女，车模浴室外围等好看的妹子图片。"
+    }
+    context['seo'] = seo
+    return context
+
+
+def __with_tag_seo(context):
+    tag = context.get("tag")
+    relate_tags = context.get("relate_tags")
+    r_t_name = [t.get("tag_name") for t in relate_tags[0:3]]
+    seo = {
+        "title": u"{tag_name}_{relate_name}  - meizibar 妹子吧".format(tag_name=tag.tag_name,
+                                                                   relate_name="_".join(r_t_name)),
+        "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag.tag_name, relate_name="_".join(r_t_name)),
+        "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag.tag_name)
+    }
+    context['seo'] = seo
+    return context
+
+
+def __with_gallery_seo(context):
+    gallery = context.get("gallery")
+    relate_tags = context.get("relate_tags")
+    seo = {
+        "title": gallery.title + " www.meizibar.com",
+        "keywords": ",".join([t.get("tag_name") for t in relate_tags]),
+        "desc": u"meizibar 妹子吧为您提供 {title}".format(title=gallery.title)
+    }
+    context['seo'] = seo
     return context
 
 
