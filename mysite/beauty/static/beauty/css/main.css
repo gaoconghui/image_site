@@ -1618,7 +1618,6 @@ a.page-numbers {
 }
 
 .header-info {
-    background: url(../images/head.png) no-repeat center center;
     height: 120px
 }
 
@@ -3781,7 +3780,6 @@ ul.links li a {
     background-repeat: no-repeat;
     margin: 5px;
     line-height: 30px;
-    background-image: url(../images/share.png);
 }
 
 .myshare ul li:hover {
