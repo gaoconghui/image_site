@@ -2,6 +2,8 @@
 
 from django.db import models
 
+from util.normal import ensure_utf8
+
 """
 model与爬取的model不同，这里完全不包含原始图片的信息，只包含线上展示的内容
 """
@@ -48,4 +50,4 @@ class Tag(models.Model):
     objects = ItemManager()
 
     def __str__(self):
-        return "{name} -- {_id}".format(name=self.tag_name, _id=self.tag_id)
+        return "{name} -- {_id}".format(name=ensure_utf8(self.tag_name), _id=self.tag_id)
