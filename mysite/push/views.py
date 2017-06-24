@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from beauty.models import Gallery, Image, Tag
 from beauty.tags_model import tag_cache
 from util.dedup import is_new_md5, add_title_to_md5
-from util.normal import ensure_unicode
+from util.normal import ensure_unicode, ensure_utf8
 from util.pinyin import get_pinyin
 
 push_key = u"mt1994"
@@ -74,7 +74,7 @@ def save_gallery_item(data):
     logger.debug(json.dumps(data))
     ori_gallery = data.get("gallery", {})
     title = ori_gallery['title']
-    if not add_title_to_md5(title):
+    if not add_title_to_md5(ensure_utf8(title)):
         logger.info("dedup old title")
         return
     images = data.get("images", [])
