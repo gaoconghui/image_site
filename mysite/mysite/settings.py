@@ -46,7 +46,7 @@ LOGGING = {
         'file_handler': {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': '/tmp/beauty/beauty.log',
+            'filename': '/data/beauty/beauty.log',
             'formatter': 'standard'
         },
         'console': {
