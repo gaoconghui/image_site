@@ -48,8 +48,9 @@ def __get_random_tag(count):
     """
     随机返回若干个tag
     """
-    random.shuffle(get_all_tags())
-    return get_all_tags()[:count]
+    tags = get_all_tags()
+    random.shuffle(tags)
+    return tags[:count]
 
 
 def gen_gallery(request, _id, page_num=1, page_size=1):
