@@ -20,14 +20,14 @@ logger = logging.getLogger("push")
 def get_all_tags():
     if "all_tags" not in cache:
         all_tags = Tag.objects.all()
-        all_tags = set([tag.tag_id for tag in all_tags])
+        all_tags = [tag.tag_id for tag in all_tags]
         cache.set("all_tags", all_tags, timeout=15 * 60)
     return cache.get("all_tags")
 
 
 def add_tag(tag):
     all_tags = get_all_tags()
-    all_tags.add(tag)
+    all_tags.append(tag)
     cache.set("all_tags", all_tags, timeout=15 * 60)
 
 
