@@ -855,7 +855,7 @@ $.fn.postLike = function () {
         var id = $(this).data("id"), action = $(this).data('action'),
             rateHolder = $(this).children('.count').children('.ct_ding');
         var ajax_data = {action: "bigfa_like", um_id: id, um_action: action};
-        $.post(chenxing.ajax_url, ajax_data, function (data) {
+        $.post(beauty.ajax_url, ajax_data, function (data) {
             $(rateHolder).html(data)
         });
         return false
@@ -872,7 +872,7 @@ $.fn.postLikeno = function () {
         var id = $(this).data("id"), action = $(this).data('action'),
             rateHolder = $(this).children('.count').children('.ct_ding');
         var ajax_data = {action: "bigfa_like_no", um_id: id, um_action: action};
-        $.post(chenxing.ajax_url, ajax_data, function (data) {
+        $.post(beauty.ajax_url, ajax_data, function (data) {
             $(rateHolder).html(data)
         });
         return false
@@ -970,7 +970,7 @@ $(function () {
         $('.slide-wrapper').removeClass('moved')
     });
     $('.logint').on('click', function () {
-        $('#back').load(chenxing.home_url + '/login');
+        $('#back').load(beauty.home_url + '/login');
         document.getElementById("back").style.display = ""
     })
 });
