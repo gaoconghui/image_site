@@ -81,8 +81,8 @@ def save_gallery_item(data):
 
     _gallery = Gallery.objects.create_item(
         gallery_id=ori_gallery['gallery_id'],
-        title=ori_gallery['title'],
-        tags=ori_gallery.get("tags", ""),
+        title=ensure_unicode(ori_gallery['title']),
+        tags=ensure_unicode(ori_gallery.get("tags", "")),
         cover_id=ori_gallery.get("cover_id"),
         publish_time=ori_gallery.get("publish_time", int(time.time())),
         insert_time=ori_gallery.get("insert_time", int(time.time())),
@@ -93,7 +93,7 @@ def save_gallery_item(data):
         Image.objects.create_item(
             gallery_id=_image.get("gallery_id", _gallery.gallery_id),
             image_id=_image['image_id'],
-            desc=_image.get("desc", ""),
+            desc=ensure_unicode(_image.get("desc", "")),
             order=_image["order"]
         ).save()
 
