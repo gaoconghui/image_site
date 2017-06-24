@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import logging
 import time
 
 from django.core.cache import cache
@@ -8,10 +9,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 from beauty.models import Gallery, Image, Tag
 from beauty.tags_model import tag_cache
+from util.dedup import is_new_md5, add_title_to_md5
 from util.normal import ensure_unicode
 from util.pinyin import get_pinyin
 
 push_key = u"mt1994"
+logger = logging.getLogger("push")
 
 
 def get_all_tags():
@@ -50,6 +53,10 @@ def gallery(request):
     return HttpResponse(json.dumps(result), content_type='application/json')
 
 
+def check(request, md5):
+    return HttpResponse(is_new_md5(md5))
+
+
 def save_gallery_item(data):
     """
     保存传进来的图集以及图片内容，格式如下
@@ -64,7 +71,12 @@ def save_gallery_item(data):
     :param data: 
     :return: 
     """
+    logger.debug(json.dumps(data))
     ori_gallery = data.get("gallery", {})
+    title = ori_gallery['title']
+    if not add_title_to_md5(title):
+        logger.info("dedup old title")
+        return
     images = data.get("images", [])
 
     _gallery = Gallery.objects.create_item(
