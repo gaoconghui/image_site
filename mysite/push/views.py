@@ -2,8 +2,6 @@
 import json
 import logging
 import time
-
-from django.core.cache import cache
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -18,18 +16,9 @@ logger = logging.getLogger("push")
 
 
 def get_all_tags():
-    if "all_tags" not in cache:
-        all_tags = Tag.objects.all()
-        all_tags = [tag.tag_id for tag in all_tags]
-        cache.set("all_tags", all_tags, timeout=15 * 60)
-    return cache.get("all_tags")
-
-
-def add_tag(tag):
-    all_tags = get_all_tags()
-    all_tags.append(tag)
-    cache.set("all_tags", all_tags, timeout=15 * 60)
-
+    all_tags = Tag.objects.all()
+    all_tags = [tag.tag_id for tag in all_tags]
+    return all_tags
 
 @csrf_exempt
 def gallery(request):
@@ -108,7 +97,6 @@ def check_and_add_tags(tags):
     for tag in tags:
         pinyin = get_pinyin(tag)
         if pinyin not in get_all_tags():
-            add_tag(pinyin)
             Tag.objects.create_item(
                 tag_name=tag,
                 tag_id=pinyin,
