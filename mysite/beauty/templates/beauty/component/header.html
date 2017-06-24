@@ -1,7 +1,8 @@
+{% load static %}
 <div class="index_header nav_headertop">
     <div class="header_inner">
         <div class="logo">
-            <a href="http://www.sotu.la"><img src="http://www.sotu.la/wp-content/uploads/2017/03/logo.png" alt="美女图片"/></a>
+            <a href="{%url 'beauty:hot' 1 %}"><img src="{%static 'beauty/pic/logo.png'%}" alt="美女图片"/></a>
         </div>
         <div class="header_menu">
             <ul>

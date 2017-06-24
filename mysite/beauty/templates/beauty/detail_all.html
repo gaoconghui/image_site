@@ -22,11 +22,11 @@
                 </div>
             </div>
             <div class="content" id="content">
-                <div class="content_left"><font color="#FF0000">图集介绍</font>:{{image.0.desc}} <br>
+                <div class="content_left"><font color="#FF0000">图集介绍</font>: 妹子吧 (meizibar.com) 小编为您精心推荐 {{gallery.title}} <br><br>
 
                     {% for img in image%}
                     <img src="{% static 'beauty/pic/thumb_2.png' %}" data-original="{%image img.image_id %}"
-                         alt="{{img.title}}" style="display: block;">
+                         alt="{{img.desc}}" style="display: block;">
                     {% endfor %}
 
 
