@@ -20,8 +20,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^', include('beauty.urls')),
     url(r'^polls/', include('polls.urls')),
     url(r'^push/', include('push.urls')),
-    url(r'^', include('beauty.urls')),
     url(r'^admin/', admin.site.urls),
 ]

@@ -2,7 +2,7 @@
 import json
 import time
 
-from django.db import IntegrityError
+from django.core.cache import cache
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,8 +12,20 @@ from util.normal import ensure_unicode
 from util.pinyin import get_pinyin
 
 push_key = u"mt1994"
-all_tags = Tag.objects.all()
-all_tags = set([tag.tag_id for tag in all_tags])
+
+
+def get_all_tags():
+    if "all_tags" not in cache:
+        all_tags = Tag.objects.all()
+        all_tags = set([tag.tag_id for tag in all_tags])
+        cache.set("all_tags", all_tags, timeout=15 * 60)
+    return cache.get("all_tags")
+
+
+def add_tag(tag):
+    all_tags = get_all_tags()
+    all_tags.add(tag)
+    cache.set("all_tags", all_tags, timeout=15 * 60)
 
 
 @csrf_exempt
@@ -83,8 +95,8 @@ def save_gallery_item(data):
 def check_and_add_tags(tags):
     for tag in tags:
         pinyin = get_pinyin(tag)
-        if pinyin not in all_tags:
-            all_tags.add(pinyin)
+        if pinyin not in get_all_tags():
+            add_tag(pinyin)
             Tag.objects.create_item(
                 tag_name=tag,
                 tag_id=pinyin,

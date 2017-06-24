@@ -11,10 +11,14 @@ from beauty.static_util import site_statistics, home_tags
 from beauty.tags_model import tag_cache
 from beauty.view_counter import view_counter
 from util.pinyin import get_pinyin
+from django.core.cache import cache
 
 relate_gallery_cache = {}
-all_tags = list(Tag.objects.all())
 
+def get_all_tags():
+    if "all_tags" not in cache:
+        cache.set("all_tags",list(Tag.objects.all()),timeout=15*60)
+    return cache.get("all_tags")
 
 def index(request, page_num=1):
     page_num = int(page_num)
@@ -39,8 +43,8 @@ def __get_random_tag(count):
     """
     随机返回若干个tag
     """
-    random.shuffle(all_tags)
-    return all_tags[:count]
+    random.shuffle(get_all_tags())
+    return get_all_tags()[:count]
 
 
 def gen_gallery(request, _id, page_num=1, page_size=1):
