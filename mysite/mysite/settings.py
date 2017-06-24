@@ -79,7 +79,6 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
     'beauty.apps.BeautyConfig',
     'push.apps.PushConfig',
     'django.contrib.admin',

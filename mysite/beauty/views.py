@@ -1,9 +1,11 @@
 # coding=utf-8 #coding:utf-8
 import random
 
+from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 
 from beauty.models import Gallery, Tag
 from beauty.models import Image
@@ -11,14 +13,15 @@ from beauty.static_util import site_statistics, home_tags
 from beauty.tags_model import tag_cache
 from beauty.view_counter import view_counter
 from util.pinyin import get_pinyin
-from django.core.cache import cache
 
 relate_gallery_cache = {}
 
+
 def get_all_tags():
     if "all_tags" not in cache:
-        cache.set("all_tags",list(Tag.objects.all()),timeout=15*60)
+        cache.set("all_tags", list(Tag.objects.all()), timeout=15 * 60)
     return cache.get("all_tags")
+
 
 def index(request, page_num=1):
     page_num = int(page_num)
@@ -29,11 +32,13 @@ def index(request, page_num=1):
     return render(request, 'beauty/index.html', __with_index_seo(__with_normal_field(context)))
 
 
+@cache_page(60 * 15)
 def gallery(request, _id, page_num=1):
     context = gen_gallery(request, _id, page_num=page_num, page_size=1)
     return render(request, 'beauty/detail.html', __with_gallery_seo(__with_normal_field(context)))
 
 
+@cache_page(60 * 15)
 def gallery_more(request, _id, page_num):
     context = gen_gallery(request, _id, page_num=page_num, page_size=5)
     return render(request, 'beauty/detail_all.html', __with_gallery_seo(__with_normal_field(context)))
@@ -158,7 +163,7 @@ def __with_tag_seo(context):
     r_t_name = [t.get("tag_name") for t in relate_tags[0:3]]
     seo = {
         "title": u"{tag_name}_{relate_name}  - meizibar 妹子吧".format(tag_name=tag.tag_name,
-                                                                   relate_name="_".join(r_t_name)),
+                                                                    relate_name="_".join(r_t_name)),
         "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag.tag_name, relate_name="_".join(r_t_name)),
         "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag.tag_name)
     }
