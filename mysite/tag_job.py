@@ -59,4 +59,5 @@ def init_redis_tag():
         add_gallery_to_tag(gid,"all")
 
 if __name__ == '__main__':
+    jieba.load_userdict("./userdict")
     init_redis_tag()
