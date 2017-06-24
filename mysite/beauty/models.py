@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import time
 
 from django.db import models
 
@@ -15,7 +14,7 @@ class ItemManager(models.Manager):
 
 
 class Gallery(models.Model):
-    gallery_id = models.CharField(max_length=200,unique=True)
+    gallery_id = models.CharField(max_length=200, unique=True)
     title = models.CharField(max_length=200)
     tags = models.CharField(max_length=200, null=True)
     cover_id = models.CharField(max_length=200)
@@ -37,6 +36,9 @@ class Image(models.Model):
 
     objects = ItemManager()
 
+    def __str__(self):
+        return self.image_id
+
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=200)
@@ -44,3 +46,6 @@ class Tag(models.Model):
     desc = models.CharField(max_length=200, default="")
     tag_type = models.IntegerField()
     objects = ItemManager()
+
+    def __str__(self):
+        return "{name} -- {_id}".format(name=self.tag_name, _id=self.tag_id)
