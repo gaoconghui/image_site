@@ -389,7 +389,7 @@ a, a:hover {
     width: 880px;
     height: 350px;
     margin: 0 auto;
-    background: url(../images/dt_load.gif) no-repeat 50% 50%
+    background: url(../pic/dt_load.gif) no-repeat 50% 50%
 }
 
 .slider-wrap .nivoSlider img {
@@ -1104,7 +1104,7 @@ a.next-cat {
 }
 
 .image_div a img {
-    cursor: url(../images/arr_right.cur), auto
+    cursor: url(../pic/arr_right.cur), auto
 }
 
 .pagination {
