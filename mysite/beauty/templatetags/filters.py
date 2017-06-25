@@ -1,9 +1,9 @@
 # coding=utf-8 #coding:utf-8
-
+import random
 
 from django import template
 
-from beauty.view_counter import view_counter
+from beauty.view_helper import get_all_tags
 
 register = template.Library()
 
@@ -36,3 +36,9 @@ def calculate_page(current_page, total_page):
     result.append(total_page)
     return result
 
+
+@register.filter(name="random_tags")
+def random_tags(count):
+    tags = get_all_tags()
+    random.shuffle(tags)
+    return tags[:count]

@@ -1465,9 +1465,36 @@ a.page-numbers {
     font-size: .85em;
     padding: 10px
 }
+.widget_tags_num ul {
+                background: #fff;
+                padding: 5px;
+            }
 
+.widget_tags_num ul li {
+    float: left;
+    margin: 5px;
+}
+
+.widget_tags_num ul li a {
+    display: inline-block;
+    padding: 2px 10px;
+    border: solid 1px #dadada;
+    border-radius: 20px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.11);
+    color: #999;
+}
+
+.widget_tags_num ul li.tag_color_s a {
+    color: #f66;
+    border-color: #f66;
+}
+
+.widget_tags_num ul li a:hover {
+    color: #f66;
+    border-color: #f66;
+}
 .slide-mask {
-    position: absolute;
+    position: fixed;
     z-index: 99;
     left: 0;
     top: 0;
@@ -1483,7 +1510,7 @@ a.page-numbers {
 }
 
 .slide-wrapper {
-    position: absolute;
+    position: fixed;
     display: none \9;
     z-index: 100;
     left: 0;
@@ -1646,7 +1673,7 @@ a.page-numbers {
 .menu_slide {
     margin-top: 20px;
     padding: 0;
-    list-style: none
+    list-style: none,
 }
 
 .menu_slide li .sub-menu {

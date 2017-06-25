@@ -1,7 +1,6 @@
 # coding=utf-8 #coding:utf-8
 import random
 
-from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
@@ -12,15 +11,10 @@ from beauty.models import Image
 from beauty.static_util import site_statistics, home_tags
 from beauty.tags_model import tag_cache
 from beauty.view_counter import view_counter
+from beauty.view_helper import get_all_tags
 from util.pinyin import get_pinyin
 
 relate_gallery_cache = {}
-
-
-def get_all_tags():
-    if "all_tags" not in cache:
-        cache.set("all_tags", list(Tag.objects.all()), timeout=15 * 60)
-    return cache.get("all_tags")
 
 
 def index(request, page_num=1):
@@ -50,6 +44,7 @@ def __get_random_tag(count):
     """
     tags = get_all_tags()
     random.shuffle(tags)
+
     return tags[:count]
 
 

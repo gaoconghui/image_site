@@ -40,3 +40,5 @@ def time_format(t):
 @register.simple_tag(name="view")
 def view_getter(_id):
     return view_counter.get_view_count(_id)
+
+

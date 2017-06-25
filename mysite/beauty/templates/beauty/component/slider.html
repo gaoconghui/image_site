@@ -1,18 +1,40 @@
 {% load static %}
+{% load filters %}
 <div class="slide-mask"></div>
 <nav class="slide-wrapper">
-    <div class="header-info">
-        <div class="header-logo">
-        </div>
-        <div class="header-info-content">
-        </div>
-    </div>
-    <ul class="menu_slide" nav-data="nav_363114">
-        <li class="current-post-ancestor current-menu-parent current-post-parent"><a
-                href="{% url 'beauty:tag_page' tag_name='xinggan' page_num=1 %}">n</a></li>
-        <li><a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">a</a></li>
-        <li><a href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">b</a></li>
-        <li><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">c</a></li>
-        <li><a href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">d</a></li>
+    <div class="widget">
+    <h3>导航</h3>
+    <ul class="menu_slide">
+        <li><a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">清纯美女</a></li>
+        <li><a href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">丝袜美腿</a></li>
+        <li><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">性感模特</a></li>
+        <li><a href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">明星写真</a></li>
+        <li><a href="{% url 'beauty:tag_page' tag_name='sifang' page_num=1 %}">妹子私房</a></li>
+        <li><a href="{% url 'beauty:tag_page' tag_name='luoli' page_num=1 %}">可爱萝莉</a></li>
     </ul>
+    </div>
+    <div class="widget widget_tags_num">
+        <h3>标签云</h3>
+        <ul class="menu_slide cl">
+            {% if tags_cloud %}
+            {% for r_tag in tags_cloud %}
+            {% if r_tag in relate_tags %}
+            <li class="tag_color_s">
+                {%else%}
+            <li>
+                {%endif%}
+                <a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="{{r_tag.tag_name}}">{{r_tag.tag_name}}</a>
+            </li>
+            {% endfor %}
+            {%else%}
+
+
+            {% for r_tag in 10|random_tags %}
+            <li>
+                <a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="{{r_tag.tag_name}}">{{r_tag.tag_name}}</a>
+            </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
 </nav>

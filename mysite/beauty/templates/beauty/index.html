@@ -2,23 +2,10 @@
 
 {% block mainbody %}
 {% load static %}
+{% load filters %}
 <body class="home blog body_top">
 {% include "beauty/component/header.html" %}
-<div class="slide-mask"></div>
-<nav class="slide-wrapper">
-    <div class="header-info">
-        <div class="header-logo">
-        </div>
-        <div class="header-info-content">
-        </div>
-    </div>
-    <ul class="menu_slide" nav-data="nav_363114">
-        <li id="menu-item-2854"><a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">清纯美女</a></li>
-        <li id="menu-item-2855"><a href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">丝袜美腿</a></li>
-        <li id="menu-item-2856"><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">性感模特</a></li>
-        <li id="menu-item-2857"><a href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">明星写真</a></li>
-    </ul>
-</nav>
+{% include "beauty/component/slider.html" %}
 
 
 <div class="home-filter">
@@ -40,7 +27,6 @@
        {% include "beauty/component/gallery_view.html" %}
 
 
-        {% load filters %}
         <nav class="navigation pagination" role="navigation">
             <h2 class="screen-reader-text">文章导航</h2>
             <div class="nav-links">
