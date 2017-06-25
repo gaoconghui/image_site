@@ -9,18 +9,19 @@
                 <li class="megamenu"><a href="{% url 'beauty:tag_page' tag_name='xinggan' page_num=1 %}">性感美女</a></li>
                 <li class="megamenu"><a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">清纯妹子</a></li>
                 <li class="megamenu"><a href="{% url 'beauty:tag_page' tag_name='sifang' page_num=1 %}">妹子私房</a></li>
-                <li class="megamenu"><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}"></a>长腿模特</li>
+                <li class="megamenu"><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">长腿模特</a></li>
                 <li class="megamenu"><a href="{% url 'beauty:tag_page' tag_name='luoli' page_num=1 %}">可爱萝莉</a></li>
-                <li class="megamenu"><a href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">大牌明星</a></li>
+
             </ul>
         </div>
         <div class="login_text mobie">
             <a href="javascript:;" class="slide-menu"><i class="fa fa-list-ul"></i></a>
         </div>
         <div class="header_search_bar">
-            <form action="http://localhost">
+            <form action="/" method="get">
                 <button class="search_bar_btn" type="submit"><i class="fa fa-search"></i></button>
-                <input class="search_bar_input" type="text" name="s" placeholder="输入关键字">
+                <input class="search_bar_input" type="text" name="tag_name" placeholder="输入关键字">
+                <input class="search_bar_input" type="hidden" name="page" value="1">
             </form>
         </div>
     </div>

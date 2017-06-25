@@ -1,4 +1,5 @@
 # coding=utf-8 #coding:utf-8
+import logging
 import random
 
 from django.core.paginator import Paginator
@@ -9,15 +10,23 @@ from django.views.decorators.cache import cache_page
 from beauty.models import Gallery, Tag
 from beauty.models import Image
 from beauty.static_util import site_statistics, home_tags
-from beauty.tags_model import tag_cache
+from beauty.tags_model import tag_cache, Page
 from beauty.view_counter import view_counter
 from beauty.view_helper import get_all_tags
+from util.normal import ensure_unicode, ensure_utf8
 from util.pinyin import get_pinyin
 
 relate_gallery_cache = {}
 
+logger = logging.getLogger("beauty")
+
 
 def index(request, page_num=1):
+    if "tag_name" in request.GET:
+        tag_name = request.GET.get("tag_name")
+        if tag_name:
+            page_num = request.GET.get("page", page_num)
+            return tag_page(request, tag_name, page_num)
     page_num = int(page_num)
     context = {
         'page_content': __get_galleries_by_tag("all", 10, page_num, max_pages=100),
@@ -87,7 +96,7 @@ def gen_gallery(request, _id, page_num=1, page_size=1):
 
 def tag_page(request, tag_name, page_num=1):
     """
-    TODO 需要改为从reids读取tag下的gallery
+    包含查询tag和query数据库两种，会优先查询tag
     :param request:
     :param tag_name:
     :param page_num:
@@ -95,10 +104,20 @@ def tag_page(request, tag_name, page_num=1):
     """
     page_num = int(page_num)
     try:
-        tag = Tag.objects.get(tag_id=tag_name)
+        tag_id = get_pinyin(tag_name)
+        tag = Tag.objects.get(tag_id=tag_id)
+        galleries = __get_galleries_by_tag(tag_id, page_size=20, page=page_num)
     except Tag.DoesNotExist:
-        raise Http404("Poll does not exist")
-    galleries = __get_galleries_by_tag(tag_name, page_size=20, page=page_num)
+        logger.info("tag not exist , need query {query}".format(query=ensure_utf8(tag_name)))
+        # 每次都要扫表，很慢
+        gs = Gallery.objects.filter(title__contains=tag_name)
+        g_page = Paginator(gs, 20)
+        g_list = g_page.page(page_num)
+        galleries = Page(object_list=g_list.object_list, page_size=20, num_pages=g_page.num_pages, number=g_list.number)
+        tag = {
+            "tag_name": tag_name,
+            "tag_id": tag_name
+        }
     context = {
         'page_content': galleries,
         'tag': tag,
@@ -127,6 +146,8 @@ def __get_relate_tags(galleries, tag_id):
     :param galleries: 
     :return: 
     """
+    if not galleries:
+        return []
     relate_tags = [gallery.tags.split(",") for gallery in galleries]
     relate_tags = [{"tag_name": tag, "tag_id": get_pinyin(tag)} for tag in set(reduce(lambda x, y: x + y, relate_tags))
                    if get_pinyin(tag) != tag_id]
@@ -155,13 +176,17 @@ def __with_index_seo(context):
 
 def __with_tag_seo(context):
     tag = context.get("tag")
+    if isinstance(tag, Tag):
+        tag_name = tag.tag_name
+    else:
+        tag_name = tag.get("tag_name")
     relate_tags = context.get("relate_tags")
     r_t_name = [t.get("tag_name") for t in relate_tags[0:3]]
     seo = {
-        "title": u"{tag_name}_{relate_name}  - meizibar 妹子吧".format(tag_name=tag.tag_name,
+        "title": u"{tag_name}_{relate_name}  - meizibar 妹子吧".format(tag_name=tag_name,
                                                                     relate_name="_".join(r_t_name)),
-        "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag.tag_name, relate_name="_".join(r_t_name)),
-        "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag.tag_name)
+        "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag_name, relate_name="_".join(r_t_name)),
+        "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag_name)
     }
     context['seo'] = seo
     return context
