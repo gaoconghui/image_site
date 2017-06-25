@@ -2,9 +2,9 @@
 {% load static %}
 {% load mytag %}
 {% if page_content %}
-<div class="update_area_lists cl" id="container">
+<ul class="update_area_lists cl">
     {% for gallery in page_content %}
-    <div class="i_list list_n2">
+    <li class="i_list list_n2">
         <a href="{% url 'beauty:gallery' _id=gallery.gallery_id page_num=1 %}" title="{{gallery.title}}">
             <img src="{% static 'beauty/pic/thumb_2.png' %}"
                  data-original="{%thumb gallery.cover_id %}" width="270"
@@ -15,8 +15,8 @@
             <div class="meta-post"><i class="fa fa-clock-o"></i>{%time gallery.publish_time%}<span class="cx_like"><i
                     class="fa fa-heart"></i>{%view gallery.gallery_id %}</span></div>
         </div>
-    </div>
+    </li>
     {% endfor %}
-</div>
+</ul>
 {% else %}
 {% endif %}
