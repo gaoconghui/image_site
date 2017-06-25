@@ -20,7 +20,7 @@ relate_gallery_cache = {}
 def index(request, page_num=1):
     page_num = int(page_num)
     context = {
-        'page_content': __get_galleries_by_tag("all", 10, page_num),
+        'page_content': __get_galleries_by_tag("all", 10, page_num, max_pages=100),
         'home_tags': home_tags()
     }
     return render(request, 'beauty/index.html', __with_index_seo(__with_normal_field(context)))
@@ -107,8 +107,8 @@ def tag_page(request, tag_name, page_num=1):
     return render(request, 'beauty/tag_page.html', __with_tag_seo(__with_normal_field(context)))
 
 
-def __get_galleries_by_tag(tag, page_size, page):
-    return tag_cache.query_by_tag(tag=tag, page_size=page_size, number=page)
+def __get_galleries_by_tag(tag, page_size, page, max_pages=-1):
+    return tag_cache.query_by_tag(tag=tag, page_size=page_size, number=page, max_page=max_pages)
 
 
 def get_random_galleries_by_tags(tags, count):

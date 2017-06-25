@@ -28,12 +28,13 @@ class TagCache():
         :return: 
         """
         for tag in tags:
-            if not self.r.zrank(tag,gallery_id):
+            if not self.r.zrank(tag, gallery_id):
                 self.r.zadd(tag, gallery_id, int(time.time()))
 
-    def query_by_tag(self, tag, page_size, number=1):
+    def query_by_tag(self, tag, page_size, number=1, max_page=-1):
         """
         核心方法，根据score排序获取图集
+        :param max_page: 最多显示多少页
         :param tag: 要查询的tag，为拼音
         :param page_size: 每页数量
         :param number: 页数，默认第一页，如果小于1则默认1，大于最大值则最后一页
@@ -41,6 +42,8 @@ class TagCache():
         """
         count = self.r.zcard(tag)
         num_pages = int((count - 1) / page_size) + 1
+        if 0 < max_page < num_pages:
+            num_pages = max_page
         if number < 1:
             number = 1
         if number > num_pages:
