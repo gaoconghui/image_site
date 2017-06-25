@@ -1,8 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
 from beauty.models import Gallery, Tag, Image
 
 admin.site.register(Gallery)
-admin.site.register(Tag)
 admin.site.register(Image)
+
+
+class TagAdmin(admin.ModelAdmin):
+    search_fields = ('tag_name', 'tag_id',)
+
+admin.site.register(Tag,TagAdmin)
