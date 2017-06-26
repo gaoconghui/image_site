@@ -31,6 +31,9 @@ class TagCache():
             if not self.r.zrank(tag, gallery_id):
                 self.r.zadd(tag, gallery_id, int(time.time()))
 
+    def delete_tag(self,tag_id):
+        self.r.delete(tag_id)
+
     def query_by_tag(self, tag, page_size, number=1, max_page=-1):
         """
         核心方法，根据score排序获取图集

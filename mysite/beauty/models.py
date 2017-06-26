@@ -27,7 +27,7 @@ class Gallery(models.Model):
     objects = ItemManager()
 
     def __str__(self):
-        return self.title
+        return ensure_utf8(self.title)
 
 
 class Image(models.Model):
