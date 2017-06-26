@@ -37,9 +37,9 @@ class TagAdmin(admin.ModelAdmin):
             tag_list.remove(tag_name)
             gallery.tags = ",".join(tag_list)
             gallery.save()
-        logger.info("delete from tag_cache {tag_id}".format(tag_id=obj.tag_id))
+        logger.info("delete from tag_cache {tag_id}".format(tag_id=ensure_utf8(obj.tag_id)))
         tag_cache.delete_tag(obj.tag_id)
-        logger.info("delete from db {tag_id}".format(tag_id=obj.tag_id))
+        logger.info("delete from db {tag_id}".format(tag_id=ensure_utf8(obj.tag_id)))
         obj.delete()
 
 
