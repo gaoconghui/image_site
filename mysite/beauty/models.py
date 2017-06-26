@@ -50,4 +50,4 @@ class Tag(models.Model):
     objects = ItemManager()
 
     def __str__(self):
-        return "{name} -- {_id}".format(name=ensure_utf8(self.tag_name), _id=self.tag_id)
+        return "{name} -- {_id}".format(name=ensure_utf8(self.tag_name), _id=ensure_utf8(self.tag_id))
