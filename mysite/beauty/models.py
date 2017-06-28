@@ -36,7 +36,7 @@ class Image(models.Model):
     desc = models.CharField(max_length=200, null=True)
     width = models.IntegerField(null=True)
     height = models.IntegerField(null=True)
-    size = models.ImageField(null=True)
+    size = models.IntegerField(null=True)
     order = models.IntegerField()
 
     objects = ItemManager()
