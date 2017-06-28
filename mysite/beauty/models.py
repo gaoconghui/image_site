@@ -33,7 +33,7 @@ class Gallery(models.Model):
 class Image(models.Model):
     gallery_id = models.CharField(max_length=200)
     image_id = models.CharField(max_length=200, null=True)
-    desc = models.CharField(max_length=200, null=True)
+    desc = models.CharField(max_length=4096, null=True)
     width = models.IntegerField(null=True)
     height = models.IntegerField(null=True)
     size = models.IntegerField(null=True)
@@ -48,7 +48,7 @@ class Image(models.Model):
 class Tag(models.Model):
     tag_name = models.CharField(max_length=200)
     tag_id = models.CharField(max_length=200)
-    desc = models.CharField(max_length=200, default="")
+    desc = models.CharField(max_length=1024, default="")
     tag_type = models.IntegerField()
     objects = ItemManager()
 
