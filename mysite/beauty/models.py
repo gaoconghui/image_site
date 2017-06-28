@@ -34,6 +34,9 @@ class Image(models.Model):
     gallery_id = models.CharField(max_length=200)
     image_id = models.CharField(max_length=200, null=True)
     desc = models.CharField(max_length=200, null=True)
+    width = models.IntegerField(null=True)
+    height = models.IntegerField(null=True)
+    size = models.ImageField(null=True)
     order = models.IntegerField()
 
     objects = ItemManager()
