@@ -83,7 +83,10 @@ def save_gallery_item(data):
             gallery_id=_image.get("gallery_id", _gallery.gallery_id),
             image_id=_image['image_id'],
             desc=ensure_unicode(_image.get("desc", "")),
-            order=_image["order"]
+            order=_image["order"],
+            width=_image.get("width",-1),
+            height=_image.get("height",-1),
+            size=_image.get("size",-1)
         ).save()
 
     # 建立tag索引
