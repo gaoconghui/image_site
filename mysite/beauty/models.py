@@ -32,7 +32,7 @@ class Gallery(models.Model):
 
 class Image(models.Model):
     gallery_id = models.CharField(max_length=200)
-    image_id = models.CharField(max_length=200, null=True)
+    image_id = models.CharField(max_length=200, null=True,unique=True)
     desc = models.CharField(max_length=4096, null=True)
     width = models.IntegerField(null=True)
     height = models.IntegerField(null=True)

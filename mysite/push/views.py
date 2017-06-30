@@ -2,6 +2,7 @@
 import json
 import logging
 import time
+
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -19,6 +20,7 @@ def get_all_tags():
     all_tags = Tag.objects.all()
     all_tags = [tag.tag_id for tag in all_tags]
     return all_tags
+
 
 @csrf_exempt
 def gallery(request):
@@ -77,16 +79,19 @@ def save_gallery_item(data):
         insert_time=ori_gallery.get("insert_time", int(time.time())),
         page_count=ori_gallery.get("page_count", len(images))
     )
-    _gallery.save()
+    try:
+        _gallery.save()
+    except Exception, e:
+        print e
     for _image in images:
         Image.objects.create_item(
             gallery_id=_image.get("gallery_id", _gallery.gallery_id),
             image_id=_image['image_id'],
             desc=ensure_unicode(_image.get("desc", "")),
             order=_image["order"],
-            width=_image.get("width",-1),
-            height=_image.get("height",-1),
-            size=_image.get("size",-1)
+            width=_image.get("width", -1),
+            height=_image.get("height", -1),
+            size=_image.get("size", -1)
         ).save()
 
     # 建立tag索引
