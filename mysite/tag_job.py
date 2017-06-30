@@ -57,8 +57,23 @@ def init_redis_tag():
         print "process " + gid
         tags = set(gallery.tags.split(","))
         for n_tag in tags:
+            add_tag_is_not_exist(n_tag)
             add_gallery_to_tag(gid, n_tag)
         add_gallery_to_tag(gid, "all")
+
+
+def add_tag_is_not_exist(tag_name):
+    ts = Tag.objects.filter(tag_name=tag_name)
+    if len(ts) == 0:
+        print "add tag"
+        Tag(tag_name)
+        tag_id = get_pinyin(tag_name)
+        Tag.objects.create_item(
+            tag_name=tag_name,
+            tag_id=tag_id,
+            tag_type=1,
+            desc=""
+        ).save()
 
 def fix_tag_name():
     """
