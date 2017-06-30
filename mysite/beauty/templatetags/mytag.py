@@ -22,6 +22,8 @@ def get_image_url(image):
         url = base.format(image_id=image.image_id)
         if image.size > 300000:
             url += "!big"
+        else:
+            url += "!small"
         return url
     else:
         return base.format(image_id=image)
