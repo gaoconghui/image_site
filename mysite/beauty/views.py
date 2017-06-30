@@ -2,6 +2,7 @@
 import logging
 import random
 
+from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
@@ -15,8 +16,6 @@ from beauty.view_counter import view_counter
 from beauty.view_helper import get_all_tags
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
-
-relate_gallery_cache = {}
 
 logger = logging.getLogger("beauty")
 
@@ -73,9 +72,9 @@ def gen_gallery(request, _id, page_num=1, page_size=1):
         page_num = 1
     image = p.page(page_num)
     relate_tags = __get_relate_tags([_gallery], "")
-    if _id not in relate_gallery_cache:
-        relate_gallery_cache[_id] = get_random_galleries_by_tags(relate_tags, count=20)
-    relate_galleries = relate_gallery_cache[_id]
+    if cache.get("gallery" + _id) is None:
+        cache.set("gallery" + _id, get_random_galleries_by_tags(relate_tags, count=20), timeout=15 * 60)
+    relate_galleries = cache.get("gallery" + _id)
     page = {
         "prev_gallery": _id,
         "next_gallery": _id if page_num < p.num_pages else random.choice(relate_galleries).gallery_id,
