@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 tag重建脚本
+根据分词结果给图集增加tag
 """
 # import os, django
 import os
@@ -15,11 +16,11 @@ from beauty.models import Tag, Gallery
 from beauty.tags_model import tag_cache
 from util.pinyin import get_pinyin
 
+
 def rebuild_tags():
     all_tags = Tag.objects.all()
     all_tags = set([tag.tag_name for tag in all_tags])
-
-    for index,gallery in enumerate(Gallery.objects.all()):
+    for index, gallery in enumerate(Gallery.objects.all()):
         print index
         gid = gallery.gallery_id
         print "process " + gid
@@ -31,7 +32,7 @@ def rebuild_tags():
         if len(news) > 0:
             print "{gallery} need rebuild".format(gallery=gid)
             for n_tag in cuts:
-                add_gallery_to_tag(gid,n_tag)
+                add_gallery_to_tag(gid, n_tag)
             tags.update(cuts)
             gallery.tags = ",".join(list(tags))
             gallery.save()
@@ -39,24 +40,39 @@ def rebuild_tags():
             print "gallery need not rebuild".format(gallery=gid)
 
 
-def add_gallery_to_tag(gallery_id,tag):
+def add_gallery_to_tag(gallery_id, tag):
     tag_pinyin = get_pinyin(tag)
     print "add tag " + tag_pinyin
     tag_cache.add_new_gallery(gallery_id=gallery_id, tags=[tag_pinyin])
+
 
 def init_redis_tag():
     """
     应该只在第一次启动的时候使用，会扫gallery表，在redis里建立索引
     :return:
     """
-    for index,gallery in enumerate(Gallery.objects.all()):
+    for index, gallery in enumerate(Gallery.objects.all()):
         print index
         gid = gallery.gallery_id
         print "process " + gid
         tags = set(gallery.tags.split(","))
         for n_tag in tags:
-            add_gallery_to_tag(gid,n_tag)
-        add_gallery_to_tag(gid,"all")
+            add_gallery_to_tag(gid, n_tag)
+        add_gallery_to_tag(gid, "all")
+
+def fix_tag_name():
+    """
+    老的tag中包含有空格的，用_代替
+    :return: 
+    """
+    for index,gallery in enumerate(Gallery.objects.all()):
+        print index
+        tags = gallery.tags
+        if " " in tags:
+            print "tags is {tags}".format(tags=tags)
+            tags = tags.replace(" ","_")
+            gallery.tags = tags
+            gallery.save()
 
 if __name__ == '__main__':
     jieba.load_userdict("./userdict")
