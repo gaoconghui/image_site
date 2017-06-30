@@ -13,7 +13,7 @@ from beauty.static_util import site_statistics, home_tags
 from beauty.tags_model import tag_cache, Page
 from beauty.view_counter import view_counter
 from beauty.view_helper import get_all_tags
-from util.normal import ensure_unicode, ensure_utf8
+from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
 
 relate_gallery_cache = {}
