@@ -7,6 +7,7 @@ from django.contrib import admin
 from beauty.models import Gallery, Tag, Image
 from beauty.tags_model import tag_cache
 from util.normal import ensure_utf8
+from util.pinyin import get_pinyin
 
 logger = logging.getLogger("admin")
 
@@ -16,6 +17,7 @@ admin.site.register(Image)
 
 class TagAdmin(admin.ModelAdmin):
     search_fields = ('tag_name', 'tag_id',)
+    fields = ('tag_name', 'desc', 'tag_type')
 
     def delete_model(self, request, obj):
         """
@@ -41,6 +43,31 @@ class TagAdmin(admin.ModelAdmin):
         tag_cache.delete_tag(obj.tag_id)
         logger.info("delete from db {tag_id}".format(tag_id=ensure_utf8(obj.tag_id)))
         obj.delete()
+
+    def save_model(self, request, obj, form, change):
+        """
+        新增tag，重量级惭怍
+        1、数据库中查找tag_name不存在，存在则直接返回
+        2、数据库中插入tag
+        3、按照gallery 标题进行查找，标题中存在的则加入该tag
+        4、新建索引
+        """
+        tags = Tag.objects.filter(tag_name=obj.tag_name)
+        if len(tags) == 0:
+            obj.tag_id = get_pinyin(obj.tag_name)
+            obj.save()
+
+            gs = Gallery.objects.filter(title__contains=ensure_utf8(obj.tag_name))
+            for gallery in gs:
+                logger.info("add tag for gallery : {gid}".format(gid=gallery.gallery_id))
+                print
+                tag_cache.add_new_gallery(gallery.gallery_id, [obj.tag_id])
+                tag_list = gallery.tags.split(",")
+                tag_list.append(obj.tag_name)
+                gallery.tags = ",".join(tag_list)
+                gallery.save()
+        else:
+            obj = tags[0]
 
 
 admin.site.register(Tag, TagAdmin)
