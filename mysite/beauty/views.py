@@ -162,7 +162,9 @@ def __with_normal_field(context):
     :param context: 
     :return: 
     """
-    context['site_statistics'] = site_statistics()
+    if cache.get("site_stas") is None:
+        cache.set("site_stas", site_statistics(), timeout=15 * 60)
+    context['site_statistics'] = cache.get("site_stas")
     return context
 
 
