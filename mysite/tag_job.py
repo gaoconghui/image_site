@@ -66,7 +66,6 @@ def add_tag_is_not_exist(tag_name):
     ts = Tag.objects.filter(tag_name=tag_name)
     if len(ts) == 0:
         print "add tag"
-        Tag(tag_name)
         tag_id = get_pinyin(tag_name)
         Tag.objects.create_item(
             tag_name=tag_name,
@@ -75,20 +74,39 @@ def add_tag_is_not_exist(tag_name):
             desc=""
         ).save()
 
+
 def fix_tag_name():
     """
     老的tag中包含有空格的，用_代替
     :return: 
     """
-    for index,gallery in enumerate(Gallery.objects.all()):
+    for index, gallery in enumerate(Gallery.objects.all()):
         print index
         tags = gallery.tags
         if " " in tags:
             print "tags is {tags}".format(tags=tags)
-            tags = tags.replace(" ","_")
+            tags = tags.replace(" ", "_")
             gallery.tags = tags
             gallery.save()
 
+
+def update_tag_meta():
+    f = open("./tag_meta")
+    datas = f.readlines()
+    datas = [data.replace("\n", '').split("\t") for data in datas]
+    for data in datas:
+        tag_name = data[1]
+        tag_type = data[-1]
+        ts = Tag.objects.filter(tag_name=tag_name)
+        if len(ts) == 0:
+            print "tag does not exist {tag}".format(tag=tag_name)
+        else:
+            for t in ts:
+                t.tag_type = int(tag_type)
+                t.save()
+
+
 if __name__ == '__main__':
-    jieba.load_userdict("./userdict")
-    init_redis_tag()
+    # jieba.load_userdict("./userdict")
+    # init_redis_tag()
+    update_tag_meta()
