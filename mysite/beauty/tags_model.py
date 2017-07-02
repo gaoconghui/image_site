@@ -24,7 +24,7 @@ class TagCache():
         """
         为一个图集建立索引，如果已经建立过索引则直接跳过，所以这个方法可以随便用，不会造成线上数据被重置
         :param gallery_id: 
-        :param tags: 
+        :param tags: list of tag_id
         :return: 
         """
         for tag in tags:
