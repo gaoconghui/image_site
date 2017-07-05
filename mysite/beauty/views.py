@@ -61,7 +61,7 @@ def tag_page(request, tag_name, page_num=1):
         if len(tags) == 0:
             raise Tag.DoesNotExist
         tag = tags[0]
-        galleries = __get_galleries_by_tag(tag_id, page_size=20, page=page_num)
+        galleries = __get_galleries_by_tag(tag_id, page_size=20, page=page_num,max_pages=100)
     except Tag.DoesNotExist:
         logger.info("tag not exist , need query {query}".format(query=ensure_utf8(tag_name)))
         # 每次都要扫表，很慢
