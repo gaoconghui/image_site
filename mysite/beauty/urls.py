@@ -7,6 +7,7 @@ app_name = 'beauty'
 urlpatterns = [
     # ex: /beauty/
     url(r'^$', views.index, name='index'),
+    url(r'^recommend.*$', views.theme_page, name='theme'),
     url(r'^(?P<page_num>\d+)/$', views.index, name='hot'),
     url(r'^gallery/(?P<_id>\w+)/(?P<page_num>\d+)$', views.gallery, name='gallery'),
     url(r'^gallery/(?P<_id>\w+)/more/(?P<page_num>\d+)$', views.gallery_more, name='gallery_more'),

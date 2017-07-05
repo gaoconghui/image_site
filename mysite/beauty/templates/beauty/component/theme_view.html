@@ -1,0 +1,20 @@
+<!--图片展示-->
+{% load static %}
+{% load mytag %}
+{% if page_content %}
+<ul class="update_area_lists cl">
+    {% for tag in page_content %}
+    <li class="i_list list_n3">
+        <a href="{% url 'beauty:tag_page' tag_name=tag.tag_id page_num=1 %}" title="{{tag.display_name}}">
+            <img src="{% static 'beauty/pic/thumb_2.png' %}"
+                 data-original="{%footer tag.cover_id %}" width="270"
+                 height="370" alt="{{tag.display_name}}" style="display: inline;">
+        </a>
+        <div class="case_info">
+            <div class="meta-title"> {{tag.display_name}}</div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+{% endif %}

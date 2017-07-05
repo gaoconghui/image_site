@@ -8,6 +8,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 
+from beauty.editor import editor_tags
 from beauty.models import Gallery, Tag
 from beauty.models import Image
 from beauty.static_util import site_statistics, home_tags, all_tags
@@ -43,6 +44,68 @@ def gallery(request, _id, page_num=1):
 def gallery_more(request, _id, page_num):
     context = gen_gallery(request, _id, page_num=page_num, page_size=5)
     return render(request, 'beauty/detail_all.html', __with_gallery_seo(__with_normal_field(context)))
+
+
+def tag_page(request, tag_name, page_num=1):
+    """
+    包含查询tag和query数据库两种，会优先查询tag
+    :param request:
+    :param tag_name:
+    :param page_num:
+    :return:
+    """
+    page_num = int(page_num)
+    try:
+        tag_id = get_pinyin(tag_name)
+        tags = Tag.objects.filter(tag_id=tag_id)
+        if len(tags) == 0:
+            raise Tag.DoesNotExist
+        tag = tags[0]
+        galleries = __get_galleries_by_tag(tag_id, page_size=20, page=page_num)
+    except Tag.DoesNotExist:
+        logger.info("tag not exist , need query {query}".format(query=ensure_utf8(tag_name)))
+        # 每次都要扫表，很慢
+        gs = Gallery.objects.filter(title__contains=tag_name)
+        g_page = Paginator(gs, 20)
+        g_list = g_page.page(page_num)
+        galleries = Page(object_list=g_list.object_list, page_size=20, num_pages=g_page.num_pages, number=g_list.number)
+        tag = {
+            "tag_name": tag_name,
+            "tag_id": tag_name
+        }
+    context = {
+        'page_content': galleries,
+        'tag': tag,
+        'relate_tags': __get_relate_tags(galleries, tag_name)
+    }
+    return render(request, 'beauty/tag_page.html', __with_tag_seo(__with_normal_field(context)))
+
+
+@cache_page(24 * 3600)
+def theme_page(request, page_num=1):
+    """
+    专题页面，展示tag
+    :param request:
+    :param page_num:
+    :return:
+    """
+    result = []
+    for item in editor_tags:
+        tag_id, display_name = item
+        tags = Tag.objects.filter(tag_id=tag_id)
+        if len(tags) == 0:
+            continue
+        tag = tags[0]
+        cover_id = tag_cache.query_by_tag(tag.tag_id, 1).get_objects()[0].cover_id
+        result.append({
+            "display_name": display_name,
+            "tag_id": tag_id,
+            "cover_id": cover_id
+        })
+    context = {
+        "page_content": result
+    }
+    return render(request, 'beauty/theme_page.html', __with_index_seo(__with_normal_field(context)))
 
 
 def __get_random_tag(count):
@@ -89,41 +152,6 @@ def gen_gallery(request, _id, page_num=1, page_size=1):
     }
     random.shuffle(context['tags_cloud'])
     return context
-
-
-def tag_page(request, tag_name, page_num=1):
-    """
-    包含查询tag和query数据库两种，会优先查询tag
-    :param request:
-    :param tag_name:
-    :param page_num:
-    :return:
-    """
-    page_num = int(page_num)
-    try:
-        tag_id = get_pinyin(tag_name)
-        tags = Tag.objects.filter(tag_id=tag_id)
-        if len(tags) == 0:
-            raise Tag.DoesNotExist
-        tag = tags[0]
-        galleries = __get_galleries_by_tag(tag_id, page_size=20, page=page_num)
-    except Tag.DoesNotExist:
-        logger.info("tag not exist , need query {query}".format(query=ensure_utf8(tag_name)))
-        # 每次都要扫表，很慢
-        gs = Gallery.objects.filter(title__contains=tag_name)
-        g_page = Paginator(gs, 20)
-        g_list = g_page.page(page_num)
-        galleries = Page(object_list=g_list.object_list, page_size=20, num_pages=g_page.num_pages, number=g_list.number)
-        tag = {
-            "tag_name": tag_name,
-            "tag_id": tag_name
-        }
-    context = {
-        'page_content': galleries,
-        'tag': tag,
-        'relate_tags': __get_relate_tags(galleries, tag_name)
-    }
-    return render(request, 'beauty/tag_page.html', __with_tag_seo(__with_normal_field(context)))
 
 
 def __get_galleries_by_tag(tag, page_size, page, max_pages=-1):
