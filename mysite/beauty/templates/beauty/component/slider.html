@@ -3,18 +3,17 @@
 <div class="slide-mask"></div>
 <nav class="slide-wrapper">
     <div class="widget">
-    <h3>导航</h3>
+    <h4>导航</h4>
     <ul class="menu_slide">
         <li><a href="{% url 'beauty:tag_page' tag_name='qingchun' page_num=1 %}">清纯美女</a></li>
         <li><a href="{% url 'beauty:tag_page' tag_name='siwa' page_num=1 %}">丝袜美腿</a></li>
         <li><a href="{% url 'beauty:tag_page' tag_name='mote' page_num=1 %}">性感模特</a></li>
-        <li><a href="{% url 'beauty:tag_page' tag_name='mingxing' page_num=1 %}">明星写真</a></li>
         <li><a href="{% url 'beauty:tag_page' tag_name='sifang' page_num=1 %}">妹子私房</a></li>
         <li><a href="{% url 'beauty:tag_page' tag_name='luoli' page_num=1 %}">可爱萝莉</a></li>
     </ul>
     </div>
     <div class="widget widget_tags_num">
-        <h3>标签云</h3>
+        <h4>标签云</h4>
         <ul class="menu_slide cl">
             {% if tags_cloud %}
             {% for r_tag in tags_cloud %}

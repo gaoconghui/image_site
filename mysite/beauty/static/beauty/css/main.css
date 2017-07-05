@@ -1671,7 +1671,7 @@ a.page-numbers {
 }
 
 .menu_slide {
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 0;
     list-style: none,
 }
@@ -1685,7 +1685,7 @@ a.page-numbers {
 
 .menu_slide li a {
     display: block;
-    padding: 8px 1em 8px 1.2em;
+    padding: 8px 1em 5px 1.2em;
     color: #727272;
     text-shadow: 0 0 1px rgba(255, 255, 255, .1);
     letter-spacing: 1px;
@@ -2414,6 +2414,15 @@ hr {
     border-bottom: 1px solid #eee;
     line-height: 60px;
     font-size: 18px;
+    padding-left: 20px;
+    margin: 0
+}
+.widget h4 {
+    height: 40px;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+    line-height: 40px;
+    font-size: 15px;
     padding-left: 20px;
     margin: 0
 }
