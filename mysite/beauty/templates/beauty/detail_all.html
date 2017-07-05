@@ -31,36 +31,6 @@
 
 
                     <div class="tag cl" style="margin-top:30px;">
-                        <span class="dtpost-like cl">
-                            <a href="javascript:;" data-action="ding" data-id="5392" class="favorite">
-                                <i class="fa fa-thumbs-up"></i>
-                                <span class="count">
-                                    <em class="ct_ding" style="color: #F58282;">20</em>个赞
-                                </span>
-                            </a>
-
-                            <a class="share-btn collect collect-no" nonce="3ea59723" style="cursor:default;"
-                               title="你必须注册并登录才能收藏">
-                                <i class="fa fa-star"></i>
-                                <span class="count">收藏</span>
-                            </a>
-
-                            <a class="share-fx" href="javascript:;">
-                                <i class="fa fa-share-alt"></i>
-                                <span class="count">分享</span>
-                            </a>
-                        </span>
-
-                        <div class="myshare cl">
-                            <ul class="-mob-share-list">
-                                <li class="-mob-share-qq"></li>
-                                <li class="-mob-share-qzone"></li>
-                                <li class="-mob-share-weixin"></li>
-                                <li class="-mob-share-weibo"></li>
-                                <li class="-mob-share-renren"></li>
-                                <li class="-mob-share-douban"></li>
-                            </ul>
-                        </div>
 
                         <div class="nav-links page_imges">
                             <a href="{%url 'beauty:gallery_more' _id=page.prev_gallery page_num=page.prev_page %}"
@@ -128,7 +98,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="widget widget_tags_num">
+            <div class="widget widget_tags_num ">
                 <h3>标签云</h3>
                 <ul class="cl">
                     {% for r_tag in tags_cloud %}
