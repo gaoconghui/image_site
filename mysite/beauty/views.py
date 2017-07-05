@@ -10,10 +10,9 @@ from django.views.decorators.cache import cache_page
 
 from beauty.models import Gallery, Tag
 from beauty.models import Image
-from beauty.static_util import site_statistics, home_tags
+from beauty.static_util import site_statistics, home_tags, all_tags
 from beauty.tags_model import tag_cache, Page
 from beauty.view_counter import view_counter
-from beauty.view_helper import get_all_tags
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
 
@@ -50,9 +49,8 @@ def __get_random_tag(count):
     """
     随机返回若干个tag
     """
-    tags = get_all_tags()
+    tags = all_tags()
     random.shuffle(tags)
-
     return tags[:count]
 
 
@@ -162,9 +160,7 @@ def __with_normal_field(context):
     :param context: 
     :return: 
     """
-    if cache.get("site_stas") is None:
-        cache.set("site_stas", site_statistics(), timeout=15 * 60)
-    context['site_statistics'] = cache.get("site_stas")
+    context['site_statistics'] = site_statistics()
     return context
 
 

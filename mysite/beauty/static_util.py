@@ -2,18 +2,24 @@
 """
 记录网站一些比较静态的数据，后期会设置较长时间的缓存时间
 """
+import random
 import time
 
+from beauty.cache_util import static_cache
 from beauty.models import Tag, Gallery, Image
 
 
+@static_cache(timeout=15 * 60)
 def home_tags():
     """
     index 页面展示的tags
     """
-    return Tag.objects.all()[0:10]
+    tags = all_tags()
+    random.shuffle(tags)
+    return tags[0:10]
 
 
+@static_cache(timeout=15 * 60)
 def site_statistics():
     """
     网站的统计数据
@@ -26,6 +32,11 @@ def site_statistics():
         "last_week_publish": Gallery.objects.filter(insert_time__gt=int(time.time() - 86400 * 7)).count()
     }
     return result
+
+
+@static_cache(timeout=15 * 60)
+def all_tags():
+    return list(Tag.objects.all())
 
 
 def __format_count(num):

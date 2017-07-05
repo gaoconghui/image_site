@@ -29,3 +29,14 @@ def fun_cache(timeout=30 * 60,key_getter=lambda x,y:1):
     return decorator
 
 
+
+def static_cache(timeout=30 * 60):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            key = func.__name__
+            if key not in cache:
+                cache.set(key,func(*args,**kw),timeout)
+            return cache.get(key)
+        return wrapper
+    return decorator
