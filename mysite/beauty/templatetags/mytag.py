@@ -41,6 +41,18 @@ def get_thumb_url(image_id):
     return url
 
 
+@register.simple_tag(name="footer")
+def get_thumb_url(image_id):
+    """
+    根据imageid 返回url
+    在内容没有传云端时，先采取随机返回image的方式
+    :param image_id:
+    :return:
+    """
+    url = "http://beauty07.b0.upaiyun.com/{image_id}!footer".format(image_id=image_id)
+    return url
+
+
 @register.simple_tag(name="time")
 def time_format(t):
     return datetime.datetime.fromtimestamp(int(t)).strftime('%Y-%m-%d')
