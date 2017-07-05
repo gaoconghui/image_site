@@ -84,7 +84,7 @@ def gen_gallery(request, _id, page_num=1, page_size=1):
         "image": image,
         "page": page,
         "relate_tags": relate_tags,
-        "tags_cloud": relate_tags + __get_random_tag(15 - len(relate_tags)),
+        "tags_cloud": relate_tags + __get_random_tag(20 - len(relate_tags)),
         "relate_galleries": relate_galleries
     }
     random.shuffle(context['tags_cloud'])

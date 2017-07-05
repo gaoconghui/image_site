@@ -28,7 +28,7 @@
             {%else%}
 
 
-            {% for r_tag in 10|random_tags %}
+            {% for r_tag in 15|random_tags %}
             <li>
                 <a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="{{r_tag.tag_name}}">{{r_tag.tag_name}}</a>
             </li>
