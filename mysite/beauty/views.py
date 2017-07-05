@@ -11,6 +11,7 @@ from django.views.decorators.cache import cache_page
 from beauty.editor import editor_tags
 from beauty.models import Gallery, Tag
 from beauty.models import Image
+from beauty.seo import seo_manager
 from beauty.static_util import site_statistics, home_tags, all_tags
 from beauty.tags_model import tag_cache, Page
 from beauty.view_counter import view_counter
@@ -208,15 +209,17 @@ def __with_tag_seo(context):
         tag_name = tag.tag_name
     else:
         tag_name = tag.get("tag_name")
-    relate_tags = context.get("relate_tags")
-    r_t_name = [t.get("tag_name") for t in relate_tags[0:3]]
-    seo = {
-        "title": u"{tag_name}_{relate_name}  - meizibar 妹子吧".format(tag_name=tag_name,
-                                                                    relate_name="_".join(r_t_name)),
-        "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag_name, relate_name="_".join(r_t_name)),
-        "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag_name)
-    }
-    context['seo'] = seo
+    if not seo_manager.get_seo(tag_name):
+        relate_tags = context.get("relate_tags")
+        r_t_name = [t.get("tag_name") for t in relate_tags[0:3]]
+        seo = {
+            "title": u"{tag_name}_{relate_name}  - meizibar 妹子吧".format(tag_name=tag_name,
+                                                                        relate_name="_".join(r_t_name)),
+            "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag_name, relate_name="_".join(r_t_name)),
+            "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag_name)
+        }
+        seo_manager.add_seo(tag_name,seo)
+    context['seo'] = seo_manager.get_seo(tag_name)
     return context
 
 
