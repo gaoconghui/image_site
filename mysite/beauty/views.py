@@ -21,6 +21,7 @@ from util.pinyin import get_pinyin
 logger = logging.getLogger("beauty")
 
 
+@cache_page(60 * 15)
 def index(request, page_num=1):
     if "tag_name" in request.GET:
         tag_name = request.GET.get("tag_name")
@@ -62,7 +63,7 @@ def tag_page(request, tag_name, page_num=1):
         if len(tags) == 0:
             raise Tag.DoesNotExist
         tag = tags[0]
-        galleries = __get_galleries_by_tag(tag_id, page_size=20, page=page_num,max_pages=100)
+        galleries = __get_galleries_by_tag(tag_id, page_size=20, page=page_num, max_pages=100)
     except Tag.DoesNotExist:
         logger.info("tag not exist , need query {query}".format(query=ensure_utf8(tag_name)))
         # 每次都要扫表，很慢
@@ -218,7 +219,7 @@ def __with_tag_seo(context):
             "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag_name, relate_name="_".join(r_t_name)),
             "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag_name)
         }
-        seo_manager.add_seo(tag_name,seo)
+        seo_manager.add_seo(tag_name, seo)
     context['seo'] = seo_manager.get_seo(tag_name)
     return context
 
