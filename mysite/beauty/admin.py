@@ -46,12 +46,14 @@ class TagAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         """
-        新增tag，重量级惭怍
+        新增或更新tag，重量级操作
         1、数据库中查找tag_name不存在，存在则直接返回
         2、数据库中插入tag
         3、按照gallery 标题进行查找，标题中存在的则加入该tag
         4、新建索引
         """
+        if change:
+            obj.save()
         tags = Tag.objects.filter(tag_name=obj.tag_name)
         if len(tags) == 0:
             obj.tag_id = get_pinyin(obj.tag_name)
