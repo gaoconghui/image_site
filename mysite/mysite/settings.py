@@ -76,8 +76,8 @@ if not DEBUG:
 ALLOWED_HOSTS = [
     # "192.168.1.108",
     "127.0.0.1",
-    "localhost"
-    "101.236.43.11"
+    "localhost",
+    "101.236.43.11",
 ]
 
 if DEBUG:
