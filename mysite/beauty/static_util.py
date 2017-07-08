@@ -14,7 +14,7 @@ def home_tags():
     """
     index 页面展示的tags
     """
-    tags = all_tags()
+    tags = tags_without_actor()
     random.shuffle(tags)
     return tags[0:10]
 
@@ -37,6 +37,15 @@ def site_statistics():
 @static_cache(timeout=15 * 60)
 def all_tags():
     return list(Tag.objects.all())
+
+
+@static_cache(timeout=15 * 60)
+def tags_without_actor():
+    """
+    所有不包含演员的tag
+    :return:
+    """
+    return list(Tag.objects.filter(tag_type__in=[1, 3]))
 
 
 def __format_count(num):

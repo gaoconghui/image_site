@@ -49,6 +49,12 @@ class Tag(models.Model):
     tag_name = models.CharField(max_length=200)
     tag_id = models.CharField(max_length=200)
     desc = models.CharField(max_length=1024, default="")
+    """
+        tag_type:
+            1、 一般tag（未具体分类）
+            2、演员
+            3、写真社
+    """
     tag_type = models.IntegerField()
     objects = ItemManager()
 
