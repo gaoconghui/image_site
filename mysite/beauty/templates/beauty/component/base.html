@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-{% load static %}
+{% load mytag %}
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no">
-    <link rel="shortcut icon" type="image/x-icon" href="{%static 'beauty/pic/favicon.ico'%}" media="screen" />
+    <link rel="shortcut icon" type="image/x-icon" href="{%upstatic 'beauty/pic/favicon.ico'%}" media="screen" />
     {% if seo %}
     <title>{{ seo.title }}</title>
     <meta name="keywords" content="{{ seo.keywords }}"/>
@@ -12,7 +12,7 @@
     {% else %}
     <title>妹子吧 - meizibar.com</title>>
     {% endif %}
-    <link rel="stylesheet" id='style-css' type="text/css" href="{% static 'beauty/css/main.min.css' %}" media='all'/>
+    <link rel="stylesheet" id='style-css' type="text/css" href="{% upstatic 'beauty/css/main.min.css' %}" media='all'/>
     <link rel="stylesheet" id='font-awesome-css' type="text/css" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
           media='all'/>
     <script type="text/javascript" src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
@@ -32,6 +32,6 @@
 {% block mainbody %}
 {% endblock %}
 {% include "beauty/component/footer.html" %}
-<script type="text/javascript" src="{% static 'beauty/js/script.min.js' %}"></script>
+<script type="text/javascript" src="{% upstatic 'beauty/js/script.min.js' %}"></script>
 </body>
 </html>

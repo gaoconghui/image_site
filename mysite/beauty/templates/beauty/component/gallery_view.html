@@ -1,12 +1,11 @@
 <!--图片展示-->
-{% load static %}
 {% load mytag %}
 {% if page_content %}
 <ul class="update_area_lists cl">
     {% for gallery in page_content %}
     <li class="i_list list_n2">
         <a href="{% url 'beauty:gallery' _id=gallery.gallery_id page_num=1 %}" title="{{gallery.title}}">
-            <img src="{% static 'beauty/pic/thumb_2.png' %}"
+            <img src="{% upstatic 'beauty/pic/thumb_2.png' %}"
                  data-original="{%thumb gallery.cover_id %}" width="270"
                  height="370" alt="{{gallery.title}}" style="display: inline;">
         </a>

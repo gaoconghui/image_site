@@ -1,7 +1,6 @@
 {% extends "beauty/component/base.html" %}
 
 {% block mainbody %}
-{% load static %}
 {% load mytag %}
 
 <div class="main">
@@ -25,7 +24,7 @@
                 <div class="content_left"><font color="#FF0000">图集介绍</font>: 妹子吧 (meizibar.com) 小编为您精心推荐 {{gallery.title}} <br><br>
 
                     {% for img in image%}
-                    <img src="{% static 'beauty/pic/thumb_2.png' %}" data-original="{%image img %}"
+                    <img src="{% upstatic 'beauty/pic/thumb_2.png' %}" data-original="{%image img %}"
                          alt="{{img.desc}}" style="display: block;">
                     {% endfor %}
 
@@ -73,7 +72,7 @@
                 <li class="i_list list_n2">
                     <a href="{% url 'beauty:gallery_more' _id=gallery.gallery_id page_num=1 %}"
                        title="{{gallery.title}}">
-                        <img src="{% static 'beauty/pic/thumb_2.png' %}"
+                        <img src="{% upstatic 'beauty/pic/thumb_2.png' %}"
                              data-original="{%thumb gallery.cover_id %}" width="270"
                              height="370" alt="{{gallery.title}}" style="display: inline;">
                     </a>

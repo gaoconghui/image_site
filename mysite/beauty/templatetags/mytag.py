@@ -10,6 +10,10 @@ register = template.Library()
 
 host = "http://static.meizibar.com"
 
+@register.simple_tag(name="upstatic")
+def get_static_url(_id):
+    return host + "/static/{_id}".format(_id=_id)
+
 @register.simple_tag(name="image")
 def get_image_url(image):
     """

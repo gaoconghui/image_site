@@ -1,7 +1,6 @@
 {% extends "beauty/component/base.html" %}
 
 {% block mainbody %}
-{% load static %}
 {% load mytag %}
 
 <div class="main">
@@ -82,7 +81,7 @@
                 {% for gallery in relate_galleries|slice:":10" %}
                 <li class="i_list list_n2">
                     <a href="{% url 'beauty:gallery' _id=gallery.gallery_id page_num=1 %}" title="{{gallery.title}}">
-                        <img src="{% static 'beauty/pic/thumb_2.png' %}"
+                        <img src="{% upstatic 'beauty/pic/thumb_2.png' %}"
                              data-original="{%thumb gallery.cover_id %}" width="270"
                              height="370" alt="{{gallery.title}}" style="display: inline;">
                     </a>
