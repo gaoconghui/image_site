@@ -3,7 +3,7 @@ import random
 
 from django import template
 
-from beauty.static_util import all_tags
+from beauty.static_util import tags_without_actor
 
 register = template.Library()
 
@@ -39,6 +39,6 @@ def calculate_page(current_page, total_page):
 
 @register.filter(name="random_tags")
 def random_tags(count):
-    tags = all_tags()
+    tags = tags_without_actor()
     random.shuffle(tags)
     return tags[:count]

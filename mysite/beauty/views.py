@@ -12,7 +12,7 @@ from beauty.editor import editor_tags
 from beauty.models import Gallery, Tag
 from beauty.models import Image
 from beauty.seo import seo_manager
-from beauty.static_util import site_statistics, home_tags, all_tags
+from beauty.static_util import site_statistics, home_tags, tags_without_actor
 from beauty.tags_model import tag_cache, Page
 from beauty.view_counter import view_counter
 from util.normal import ensure_utf8
@@ -112,9 +112,9 @@ def theme_page(request, page_num=1):
 
 def __get_random_tag(count):
     """
-    随机返回若干个tag
+    随机返回若干个tag(不包含actor)
     """
-    tags = all_tags()
+    tags = tags_without_actor()
     random.shuffle(tags)
     return tags[:count]
 
