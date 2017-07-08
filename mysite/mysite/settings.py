@@ -80,7 +80,7 @@ ALLOWED_HOSTS = [
 ]
 
 if DEBUG:
-    INTERNAL_IPS = ('127.0.0.1', '101.236.43.11')
+    INTERNAL_IPS = ('127.0.0.1', '101.236.43.11', '114.244.137.31')
 # Application definition
 
 INSTALLED_APPS = [
