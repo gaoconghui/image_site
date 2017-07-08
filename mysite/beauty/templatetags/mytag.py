@@ -8,6 +8,7 @@ from beauty.view_counter import view_counter
 
 register = template.Library()
 
+host = "http://static.meizibar.com"
 
 @register.simple_tag(name="image")
 def get_image_url(image):
@@ -17,7 +18,7 @@ def get_image_url(image):
     :param image_id: 
     :return: 
     """
-    base = "http://beauty07.b0.upaiyun.com/{image_id}"
+    base = host + "/{image_id}"
     if isinstance(image, Image):
         url = base.format(image_id=image.image_id)
         if image.size > 300000:
@@ -37,7 +38,7 @@ def get_thumb_url(image_id):
     :param image_id: 
     :return: 
     """
-    url = "http://beauty07.b0.upaiyun.com/{image_id}!home".format(image_id=image_id)
+    url = "{host}/{image_id}!home".format(host=host,image_id=image_id)
     return url
 
 
@@ -49,7 +50,7 @@ def get_thumb_url(image_id):
     :param image_id:
     :return:
     """
-    url = "http://beauty07.b0.upaiyun.com/{image_id}!footer".format(image_id=image_id)
+    url = "{host}/{image_id}!footer".format(image_id=image_id,host=host)
     return url
 
 
