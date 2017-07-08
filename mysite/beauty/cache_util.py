@@ -5,7 +5,10 @@
 """
 import functools
 
-from django.core.cache import cache
+from django.core.cache import cache, caches
+
+REDIS_CACHE = "default"
+LOCAL_CACHE = "local"
 
 
 def fun_cache(timeout=30 * 60, key_getter=lambda x, y: 1):
@@ -31,14 +34,24 @@ def fun_cache(timeout=30 * 60, key_getter=lambda x, y: 1):
     return decorator
 
 
-def static_cache(timeout=30 * 60):
+def static_cache(timeout=30 * 60, local=False):
+    """
+    redis缓存
+    :param timeout: 超时时间
+    :param local: 是否为本地缓存。默认为否
+    :return:
+    """
+
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kw):
+            _cache = cache
+            if local:
+                _cache = caches[LOCAL_CACHE]
             key = func.__name__
-            if key not in cache:
-                cache.set(key, func(*args, **kw), timeout)
-            return cache.get(key)
+            if key not in _cache:
+                _cache.set(key, func(*args, **kw), timeout)
+            return _cache.get(key)
 
         return wrapper
 

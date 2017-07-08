@@ -34,12 +34,12 @@ def site_statistics():
     return result
 
 
-@static_cache(timeout=15 * 60)
+@static_cache(timeout=15 * 60,local=True)
 def all_tags():
     return list(Tag.objects.all())
 
 
-@static_cache(timeout=15 * 60)
+@static_cache(timeout=15 * 60,local=True)
 def tags_without_actor():
     """
     所有不包含演员的tag

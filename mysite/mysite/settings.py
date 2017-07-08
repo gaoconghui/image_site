@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from mysite.password import MYSQL_PASSWORD
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_=l6jt4_a%m)4z4_mdle686kyi83n*o9q%ryfl^j$$xkn2&_*1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if not DEBUG:
     LOGGING = {
@@ -81,7 +80,7 @@ ALLOWED_HOSTS = [
 ]
 
 if DEBUG:
-    INTERNAL_IPS = ('127.0.0.1','101.236.43.11')
+    INTERNAL_IPS = ('127.0.0.1', '101.236.43.11')
 # Application definition
 
 INSTALLED_APPS = [
@@ -99,7 +98,7 @@ if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
 
     DEBUG_TOOLBAR_CONFIG = {
-            "INTERCEPT_REDIRECTS": False,
+        "INTERCEPT_REDIRECTS": False,
     }
 
 MIDDLEWARE_CLASSES = [
@@ -175,6 +174,10 @@ CACHES = {
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
+    },
+    'local': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
     }
 }
 
