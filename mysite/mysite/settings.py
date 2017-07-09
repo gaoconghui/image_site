@@ -61,7 +61,7 @@ if not DEBUG:
         'loggers': {
             'django': {
                 'handlers': ['file_handler', 'console'],
-                'level': 'DEBUG',
+                'level': 'INFO',
                 'propagate': True
             },
             'django.request': {
