@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_=l6jt4_a%m)4z4_mdle686kyi83n*o9q%ryfl^j$$xkn2&_*1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if not DEBUG:
     LOGGING = {
@@ -53,7 +53,7 @@ if not DEBUG:
             },
             'console': {
                 'level': 'INFO',
-                'filters': ['require_debug_true'],
+                # 'filters': ['require_debug_true'],
                 'class': 'logging.StreamHandler',
                 'formatter': 'standard'
             },
@@ -69,6 +69,11 @@ if not DEBUG:
                 'level': 'ERROR',
                 'propagate': False,
             },
+            'beauty': {
+                'handlers': ['file_handler', 'console'],
+                'level': 'DEBUG',
+                'propagate': True
+            }
         }
     }
 
