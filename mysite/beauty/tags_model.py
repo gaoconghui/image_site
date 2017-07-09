@@ -29,7 +29,7 @@ class TagCache():
         """
         for tag in tags:
             if not self.r.zrank(tag, gallery_id):
-                self.r.zadd(tag, gallery_id, int(time.time()))
+                self.r.zadd(tag, gallery_id, int(-time.time()))
 
     def delete_tag(self,tag_id):
         self.r.delete(tag_id)
