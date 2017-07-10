@@ -17,20 +17,11 @@
             {% if tags_cloud %}
             {% for r_tag in tags_cloud %}
             {% if r_tag in relate_tags %}
-            <li class="tag_color_s">
-                {%else%}
-            <li>
-                {%endif%}
-                <a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="{{r_tag.tag_name}}">{{r_tag.tag_name}}</a>
-            </li>
+            <li class="tag_color_s">{%else%}<li>{%endif%}<a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="{{r_tag.tag_name}}">{{r_tag.tag_name}}</a></li>
             {% endfor %}
             {%else%}
-
-
             {% for r_tag in 15|random_tags %}
-            <li>
-                <a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="{{r_tag.tag_name}}">{{r_tag.tag_name}}</a>
-            </li>
+            <li><a href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1 %}" title="{{r_tag.tag_name}}">{{r_tag.tag_name}}</a></li>
             {% endfor %}
             {% endif %}
         </ul>
