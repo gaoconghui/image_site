@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_=l6jt4_a%m)4z4_mdle686kyi83n*o9q%ryfl^j$$xkn2&_*1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if not DEBUG:
     LOGGING = {
@@ -107,6 +107,7 @@ if DEBUG:
     }
 
 MIDDLEWARE_CLASSES = [
+    'beauty.middleware.AntiSpiderMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -204,3 +205,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+FAKE_ID = "TEST"
