@@ -32,7 +32,16 @@
           s.parentNode.insertBefore(hm, s);
         })();
     </script>
-    <script>
+
+</head>
+<body class="home blog body_top">
+{% include "beauty/component/header.html" %}
+{% include "beauty/component/slider.html" %}
+{% block mainbody %}
+{% endblock %}
+{% include "beauty/component/footer.html" %}
+<script type="text/javascript" src="{% upstatic 'beauty/js/script.min.js' %}"></script>
+<script>
     (function(){
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
@@ -45,21 +54,12 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(bp, s);
     })();
-    </script>
-    <script>
+</script>
+<script>
     (function(){
        var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?7695604e5c81307a13544252b57d2235":"https://jspassport.ssl.qhimg.com/11.0.1.js?7695604e5c81307a13544252b57d2235";
        document.write('<script src="' + src + '" id="sozz"><\/script>');
     })();
-    </script>
-
-</head>
-<body class="home blog body_top">
-{% include "beauty/component/header.html" %}
-{% include "beauty/component/slider.html" %}
-{% block mainbody %}
-{% endblock %}
-{% include "beauty/component/footer.html" %}
-<script type="text/javascript" src="{% upstatic 'beauty/js/script.min.js' %}"></script>
+</script>
 </body>
 </html>
