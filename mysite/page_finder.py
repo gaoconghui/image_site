@@ -36,8 +36,7 @@ def gen_site_map():
     每五万个链接为一个文件，生成sitemap
     :return: 
     """
-    base = """
-        <?xml version="1.0" encoding="UTF-8"?>
+    base = """<?xml version="1.0" encoding="UTF-8"?>
         <urlset>
         {items}
         </urlset>
