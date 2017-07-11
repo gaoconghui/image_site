@@ -9,6 +9,7 @@ import os
 import itertools
 
 from mysite.settings import STATIC_ROOT
+from util.normal import ensure_utf8
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 import django
@@ -19,7 +20,7 @@ from beauty.models import Tag, Gallery
 def get_all_tag_page():
     base = "http://www.meizibar.com/{tag}/1"
     for t in Tag.objects.all():
-        url = base.format(tag=t.tag_id)
+        url = base.format(tag=ensure_utf8(t.tag_id))
         yield url
 
 
