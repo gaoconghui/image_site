@@ -45,7 +45,7 @@ def tags_without_actor():
     所有不包含演员的tag
     :return:
     """
-    return list(Tag.objects.filter(tag_type__in=[1, 3]))
+    return list(Tag.objects.filter(tag_type__in=[4, 3]))
 
 
 def __format_count(num):

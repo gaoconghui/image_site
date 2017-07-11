@@ -54,6 +54,7 @@ class Tag(models.Model):
             1、 一般tag（未具体分类）
             2、演员
             3、写真社
+            4、形容词等
     """
     tag_type = models.IntegerField()
     objects = ItemManager()
