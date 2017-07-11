@@ -13,10 +13,10 @@ def get_pinyin_list(s):
 
 def get_pinyin(s):
     if s not in cache.keys():
-        cache[s] = "".join(get_pinyin_list(s))
+        cache[s] = "".join(get_pinyin_list(s)).replace(".","_").replace(u"·","_").replace("-","_")
     return cache[s]
 
 
 if __name__ == "__main__":
-    str_input = 'all'
+    str_input = 'tailai·m-ali·xier'
     print(get_pinyin(str_input))
