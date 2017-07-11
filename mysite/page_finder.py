@@ -20,7 +20,7 @@ from util.pinyin import get_pinyin
 def get_all_tag_page():
     base = "http://www.meizibar.com/{tag}/1"
     for t in Tag.objects.all():
-        url = base.format(tag=t.id)
+        url = base.format(tag=t.tag_id)
         yield url
 
 def get_all_gallery_page():
@@ -31,10 +31,10 @@ def get_all_gallery_page():
 
 if __name__ == '__main__':
     url = "http://data.zz.baidu.com/urls?site=www.meizibar.com&token=gRFpxp8hn04BXTjV"
-    for u in get_all_gallery_page():
-        print u
-        r = requests.post(url,data=u)
-        print r.text
+    # for u in get_all_gallery_page():
+    #     print u
+    #     r = requests.post(url,data=u)
+    #     print r.text
     for u in get_all_tag_page():
         print u
         r = requests.post(url,data=u)
