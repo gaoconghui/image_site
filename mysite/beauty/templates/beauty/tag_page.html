@@ -25,21 +25,16 @@
     <div class="filter-wrap">
         <div class="filter-tag">
             <div class="fl_list"><span> 为你推荐：</span>
-                <a class="fl_link linked" href="{%url 'beauty:tag_page' tag_name=tag.tag_id page_num=1 %}">
-                    {{ tag.tag_name }}</a> |
+                <a class="fl_link linked" href="{%url 'beauty:tag_page' tag_name=tag.tag_id page_num=1 %}">{{ tag.tag_name }}</a> |
                 {% for r_tag in relate_tags%}
-                <a class="fl_link" href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1%}" rel="nofollow">
-                    {{ r_tag.tag_name }}</a> |
+                <a class="fl_link" href="{%url 'beauty:tag_page' tag_name=r_tag.tag_id page_num=1%}">{{ r_tag.tag_name }}</a> |
                 {% endfor %}
             </div>
         </div>
     </div>
     <div class="update_area">
         <div class="update_area_content">
-
             {% include "beauty/component/gallery_view.html" %}
-
-
             {% load filters %}
             <nav class="navigation pagination" role="navigation">
                 <h2 class="screen-reader-text">文章导航</h2>
