@@ -25,6 +25,12 @@ def get_all_tag_page():
 
 
 def get_all_gallery_page():
+    base = "http://www.meizibar.com/gallery/{gallery}/1"
+    for g in Gallery.objects.all():
+        url = base.format(gallery=g.gallery_id)
+        yield url
+
+def get_all_gallery_more_page():
     base = "http://www.meizibar.com/gallery/{gallery}/more/1"
     for g in Gallery.objects.all():
         url = base.format(gallery=g.gallery_id)
@@ -50,7 +56,8 @@ def gen_site_map():
     index_items = [gen_url_item("http://www.meizibar.com",1.0,"always")]
     tag_items = [gen_url_item(url,0.8,"daily") for url in get_all_tag_page()]
     gallery_items = [gen_url_item(url,0.6,'weekly') for url in get_all_gallery_page()]
-    xml = base.format(items="\n".join(itertools.chain(index_items,tag_items,gallery_items)))
+    gallery_items_more = [gen_url_item(url,0.6,'weekly') for url in get_all_gallery_more_page()]
+    xml = base.format(items="\n".join(itertools.chain(index_items,tag_items,gallery_items,gallery_items_more)))
     with open(os.path.join(STATIC_ROOT,"beauty_site_map.xml"),"w") as f:
         print STATIC_ROOT
         f.write(xml)
