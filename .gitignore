@@ -1,2 +1,4 @@
 .idea
 *.pyc
+mysite/mysite/password.py
+nohup.out
