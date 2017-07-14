@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^(?P<page_num>\d+)/$', views.index, name='hot'),
     url(r'^gallery/(?P<_id>\w+)/(?P<page_num>\d+)$', views.gallery, name='gallery'),
     url(r'^gallery/(?P<_id>\w+)/more/(?P<page_num>\d+)$', views.gallery_more, name='gallery_more'),
+    url(r'^gallery/(?P<_id>\w+)/debug/(?P<page_num>\d+)$', views.gallery_debug, name='gallery_debug'),
     url(r'^(?P<tag_name>.*?)/(?P<page_num>\d+)/$', views.tag_page, name='tag_page'),
 ]
 

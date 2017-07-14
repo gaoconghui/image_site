@@ -47,6 +47,11 @@ def gallery_more(request, _id, page_num):
     context = gen_gallery(request, _id, page_num=page_num, page_size=5)
     return render(request, 'beauty/detail_all.html', __with_gallery_seo(__with_normal_field(context)))
 
+@cache_page(60 * 15)
+def gallery_debug(request, _id, page_num):
+    context = gen_gallery(request, _id, page_num=page_num, page_size=500)
+    return render(request, 'beauty/detail_all.html', __with_gallery_seo(__with_normal_field(context)))
+
 
 def tag_page(request, tag_name, page_num=1):
     """
