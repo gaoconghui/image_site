@@ -37,31 +37,18 @@ def get_all_gallery_more_page():
         yield url
 
 
-def gen_site_map(domain="normal"):
+def gen_site_map():
     """
     每五万个链接为一个文件，生成sitemap
     :return: 
     """
-    if domain is "baidu":
-
-        base = """<?xml version="1.0" encoding="UTF-8"?>
-            <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-                    xmlns:mobile="http://www.baidu.com/schemas/sitemap-mobile/1/">
-            {items}
-            </urlset>
-        """
-    else:
-        base = """<?xml version="1.0" encoding="UTF-8"?>
-            <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-            {items}
-            </urlset>
-        """
+    base = """<?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        {items}
+        </urlset>
+    """
 
     def gen_url_item(url, priority, changefreq):
-        if domain is "baidu":
-            return "<url><loc>{url}</loc><priority>{priority}</priority><mobile:mobiletype=\"htmladapt\"/><changefreq>{changefreq}</changefreq></url>".format(
-                url=url, priority=priority, changefreq=changefreq
-            )
         return "<url><loc>{url}</loc><priority>{priority}</priority><changefreq>{changefreq}</changefreq></url>".format(
             url=url, priority=priority, changefreq=changefreq
         )
@@ -71,7 +58,7 @@ def gen_site_map(domain="normal"):
     gallery_items = [gen_url_item(url,0.6,'weekly') for url in get_all_gallery_page()]
     gallery_items_more = [gen_url_item(url,0.6,'weekly') for url in get_all_gallery_more_page()]
     xml = base.format(items="\n".join(itertools.chain(index_items,tag_items,gallery_items,gallery_items_more)))
-    with open(os.path.join(STATIC_ROOT,"{domain}_site_map.xml").format(domain=domain),"w") as f:
+    with open(os.path.join(STATIC_ROOT,"beauty_site_map.xml"),"w") as f:
         print STATIC_ROOT
         f.write(xml)
 
@@ -86,5 +73,4 @@ if __name__ == '__main__':
     #     print u
     #     r = requests.post(url, data=u)
     #     print r.text
-    print gen_site_map("beauty")
-    print gen_site_map("baidu")
+    print gen_site_map()
