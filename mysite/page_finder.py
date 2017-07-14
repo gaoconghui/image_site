@@ -62,7 +62,7 @@ def gen_site_map():
         count = size / single_size + 1
         result = []
         for c in range(count):
-            result.append(items[count * single_size : (count + 1) * single_size])
+            result.append(items[c * single_size : (c + 1) * single_size])
         return result
 
     index_items = [gen_url_item("http://www.meizibar.com",1.0,"always")]
