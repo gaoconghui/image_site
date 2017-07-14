@@ -69,7 +69,7 @@ def gen_site_map():
     tag_items = [gen_url_item(url,0.8,"daily") for url in get_all_tag_page()]
     gallery_items = [gen_url_item(url,0.6,'weekly') for url in get_all_gallery_page()]
     gallery_items_more = [gen_url_item(url,0.6,'weekly') for url in get_all_gallery_more_page()]
-    items_list = items_split(list(itertools.chain(index_items,tag_items,gallery_items,gallery_items_more)),single_size=10000)
+    items_list = items_split(list(itertools.chain(index_items,tag_items,gallery_items,gallery_items_more)),single_size=9000)
     for index,items in enumerate(items_list):
         xml = base.format(items="\n".join(items))
         file_path = os.path.join(STATIC_ROOT,"beauty_site_map{c}.xml".format(c=index))
