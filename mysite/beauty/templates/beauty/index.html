@@ -1,5 +1,6 @@
 {% extends "beauty/component/base.html" %}
-
+{% load mytag %}
+{%block header%}<meta property="og:type" content="image"/><meta property="og:image" content="{%image page_content.0.cover_id %}"/>{%endblock%}
 {% block mainbody %}
 {% load filters %}
 <body class="home blog body_top">
@@ -58,7 +59,6 @@
 
     </div>
 </div>
-{% load mytag %}
 <div class="zt_list_index cl">
     <ul class="list_index_ul cl">
         <li>

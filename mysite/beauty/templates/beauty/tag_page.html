@@ -1,5 +1,9 @@
 {% extends "beauty/component/base.html" %}
-
+{% load mytag %}
+{%block header%}
+<meta property="og:type" content="image"/>
+<meta property="og:image" content="{%image page_content.0.cover_id %}"/>
+{%endblock%}
 {% block mainbody %}
 
 {% if tag.desc %}
