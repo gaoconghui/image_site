@@ -31,6 +31,16 @@ class TagCache():
             if not self.r.zrank(tag, gallery_id):
                 self.r.zadd(tag, gallery_id, int(-time.time()))
 
+    def remove_gallery(self,gallery_id,tags):
+        """
+        删除tags中的gallery
+        :param gallery_id:
+        :param tags:
+        :return:
+        """
+        for tag in tags:
+            self.r.zrem(tag,gallery_id)
+
     def delete_tag(self,tag_id):
         self.r.delete(tag_id)
 

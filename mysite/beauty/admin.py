@@ -11,7 +11,6 @@ from util.pinyin import get_pinyin
 
 logger = logging.getLogger("admin")
 
-admin.site.register(Gallery)
 admin.site.register(Image)
 
 
@@ -72,4 +71,28 @@ class TagAdmin(admin.ModelAdmin):
             obj = tags[0]
 
 
+class GalleryAdmin(admin.ModelAdmin):
+    search_fields = ('title', 'gallery_id',)
+
+    def delete_model(self, request, obj):
+        """
+        删除Gallery，重量级操作
+        1、删除redis中的索引
+        2、删除图片
+        3、删除图集
+        :param request:
+        :param obj:
+        :return:
+        """
+        gallery_id = obj.gallery_id
+        logger.info("delete gallery {gallery_id}".format(gallery_id=obj.gallery_id))
+        tags = [get_pinyin(tag) for tag in obj.tags.split(",")]
+        tags.append("all")
+        tag_cache.remove_gallery(gallery_id, tags)
+        for image in Image.objects.filter(gallery_id=gallery_id):
+            image.delete()
+        obj.delete()
+
+
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Gallery, GalleryAdmin)
