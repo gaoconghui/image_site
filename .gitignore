@@ -1,4 +1,6 @@
 .idea
 *.pyc
-mysite/mysite/password.py
 nohup.out
+*.xml
+*.log
+mysite/static/
