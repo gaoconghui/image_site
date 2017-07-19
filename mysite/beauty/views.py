@@ -1,12 +1,7 @@
 # coding=utf-8 #coding:utf-8
 import logging
 import random
-
-from django.core.cache import cache
-from django.core.paginator import Paginator
-from django.http import Http404
-from django.shortcuts import render
-from django.views.decorators.cache import cache_page
+from collections import Counter
 
 from beauty.editor import editor_tags
 from beauty.models import Gallery, Tag
@@ -15,6 +10,11 @@ from beauty.seo import seo_manager
 from beauty.static_util import site_statistics, home_tags, tags_without_actor
 from beauty.tags_model import tag_cache, Page
 from beauty.view_counter import view_counter
+from django.core.cache import cache
+from django.core.paginator import Paginator
+from django.http import Http404
+from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
 
@@ -46,6 +46,7 @@ def gallery(request, _id, page_num=1):
 def gallery_more(request, _id, page_num):
     context = gen_gallery(request, _id, page_num=page_num, page_size=5)
     return render(request, 'beauty/detail_all.html', __with_gallery_seo(__with_normal_field(context)))
+
 
 @cache_page(60 * 15)
 def gallery_debug(request, _id, page_num):
@@ -178,14 +179,16 @@ def get_random_galleries_by_tags(tags, count):
 def __get_relate_tags(galleries, tag_id):
     """
     从图集中抽取tags
+    按频率排序前20的tag （不能全部显示，全部显示会出现过多tag。
     :param galleries: 
     :return: 
     """
     if not galleries:
         return []
-    relate_tags = [gallery.tags.split(",") for gallery in galleries]
-    relate_tags = [{"tag_name": tag, "tag_id": get_pinyin(tag)} for tag in set(reduce(lambda x, y: x + y, relate_tags))
-                   if get_pinyin(tag) != tag_id]
+    relate_tags = reduce(lambda x, y: x + y, [gallery.tags.split(",") for gallery in galleries])
+    relate_tags = [{"tag_name": tag, "tag_id": get_pinyin(tag)} for tag in
+                   [tag[0] for tag in Counter(relate_tags).most_common(20) if tag_id != get_pinyin(tag[0])]
+                   ]
     return relate_tags
 
 
