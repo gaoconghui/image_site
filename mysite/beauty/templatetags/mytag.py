@@ -57,6 +57,15 @@ def get_thumb_url(image_id):
     url = "{host}/{image_id}!footer".format(image_id=image_id,host=host)
     return url
 
+@register.simple_tag(name="bg")
+def get_bg_url(bg_id):
+    """
+    返回tag 页面背景图
+    :param bg_id:
+    :return:
+    """
+    return "{host}/images/bg/{bg_id}".format(host=host,bg_id=bg_id)
+
 
 @register.simple_tag(name="time")
 def time_format(t):

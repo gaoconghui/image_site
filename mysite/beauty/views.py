@@ -18,6 +18,8 @@ from django.views.decorators.cache import cache_page
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
 
+from beauty.tags_model import tag_info
+
 logger = logging.getLogger("beauty")
 
 
@@ -86,6 +88,9 @@ def tag_page(request, tag_name, page_num=1):
         'tag': tag,
         'relate_tags': __get_relate_tags(galleries, tag_name)
     }
+    tag_view = tag_info.info(tag_name)
+    if tag_view:
+        context['tag_view'] = tag_view
     return render(request, 'beauty/tag_page.html', __with_tag_seo(__with_normal_field(context)))
 
 

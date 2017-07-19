@@ -1,31 +1,43 @@
 {% extends "beauty/component/base.html" %}
 {% load mytag %}
+{% load static %}
 {%block header%}
 <meta property="og:type" content="image"/>
 <meta property="og:image" content="{%image page_content.0.cover_id %}"/>
 {%endblock%}
 {% block mainbody %}
 
-{% if tag.desc %}
-<!--<div class="cat_bg">-->
-    <!--<div class="cat_bg_img" style="background-image:url(http://b.chenxingweb.com/cxudy/cat/cat_qingchun_8_3.png);">-->
-        <!--<p>-->
-            <!--<span style="font-size: 18px;color: #F14141;font-weight: 600;">-->
-                <!--<i class="fa fa-paper-plane"></i>  {{ tag.tag_name }}-->
-            <!--</span><br/>-->
-            <!--{{ tag.desc }}-->
-        <!--</p>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div class="fl flbg">-->
-<div class="fl">
-{%else%}<div class="fl">
-{%endif%}
+{% if tag_view %}
+<style>
+    .cat_bg .cat_bg_img {
+        height: 250px;
+    }
+    .cat_bg {
+        height: 250px;
+    }
+    @media (max-width: 800px) {
+        .cat_bg .cat_bg_img p {
+            margin: 20px 5px 5px 30px;
+        }
+    }
+</style>
+<div class="cat_bg">
+    <div class="cat_bg_img" style="background-image:url({%bg  tag_view.bg_key %});">
+        <p>
+            <span style="font-size: 18px;color: #F14141;font-weight: 600;">
+                <i class="fa fa-paper-plane"></i>  {{ tag_view.name }}
+            </span>
+            <!--{{ tag_view.desc }}-->
+            夏美酱，内地平面模特，在师姐七宝的介绍下成为秀人网麻豆，进而成为波萝社的一期生，并赴日参加艺人培训。夏美酱自述是一名日漫宅，且很喜欢LOL~非常养眼的萌妹子，肩上的纹身比较显眼。
+夏美酱，内地平面模特，在师姐七宝的介绍下成为秀人网麻豆，进而成为波萝社的一期生，并赴日参加艺人培训。
 
-
-    <div class="fl_title">
-        <div class="fl01"> {{tag.tag_name}}</div>
+        </p>
     </div>
+</div>
+<div class="fl flbg">
+{% else %}
+<div class="fl">
+{% endif %}
     <div class="filter-wrap">
         <div class="filter-tag">
             <div class="fl_list"><span> 为你推荐：</span>
