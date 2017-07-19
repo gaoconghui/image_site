@@ -143,7 +143,8 @@ class TagViewManager(object):
         with open(file_path, "r") as f:
             for actor in json.load(f):
                 if "bg_key" in actor:
-                    self.actors_map[get_pinyin(actor.get("tag_name"))] = actor
+                    for name in actor.get("meta").split(","):
+                        self.actors_map[get_pinyin(name)] = actor
 
     def info(self, tag_name):
         """
