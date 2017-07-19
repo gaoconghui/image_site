@@ -232,6 +232,8 @@ def __with_tag_seo(context):
             "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag_name, relate_name="_".join(r_t_name)),
             "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag_name)
         }
+        if tag_info.info(get_pinyin(tag_name)):
+            seo['desc'] = (seo['desc'] + tag_info.info(get_pinyin(tag_name)).get("desc"))[:90]
         seo_manager.add_seo(tag_name, seo)
     context['seo'] = seo_manager.get_seo(tag_name)
     return context
