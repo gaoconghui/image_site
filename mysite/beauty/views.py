@@ -88,7 +88,7 @@ def tag_page(request, tag_name, page_num=1):
         'tag': tag,
         'relate_tags': __get_relate_tags(galleries, tag_name)
     }
-    tag_view = tag_info.info(tag_name)
+    tag_view = tag_info.info(get_pinyin(tag_name))
     if tag_view:
         context['tag_view'] = tag_view
     return render(request, 'beauty/tag_page.html', __with_tag_seo(__with_normal_field(context)))
