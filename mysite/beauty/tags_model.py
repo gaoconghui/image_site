@@ -7,13 +7,16 @@
 会有从tag中，随机抽取操作（最好是按score概率分布）
 """
 import collections
+import json
+import os
 import random
 import time
 
 import redis
 import six
-
 from beauty.models import Gallery
+from mysite.settings import BASE_DIR
+from util.pinyin import get_pinyin
 
 
 class TagCache():
@@ -31,7 +34,7 @@ class TagCache():
             if not self.r.zrank(tag, gallery_id):
                 self.r.zadd(tag, gallery_id, int(-time.time()))
 
-    def remove_gallery(self,gallery_id,tags):
+    def remove_gallery(self, gallery_id, tags):
         """
         删除tags中的gallery
         :param gallery_id:
@@ -39,9 +42,9 @@ class TagCache():
         :return:
         """
         for tag in tags:
-            self.r.zrem(tag,gallery_id)
+            self.r.zrem(tag, gallery_id)
 
-    def delete_tag(self,tag_id):
+    def delete_tag(self, tag_id):
         self.r.delete(tag_id)
 
     def query_by_tag(self, tag, page_size, number=1, max_page=-1):
@@ -128,3 +131,36 @@ class Page(collections.Sequence):
 
 
 tag_cache = TagCache()
+
+
+class TagViewManager(object):
+    """
+    tag 展示时候的背景 话术 先用文件的形式，以后考虑改为json形式存在tag表里头
+    """
+
+    def __init__(self, file_path):
+        self.actors_map = {}
+        with open(file_path, "r") as f:
+            for actor in json.load(f):
+                if "bg_key" in actor:
+                    for name in actor.get("meta").split(","):
+                        self.actors_map[get_pinyin(name)] = actor
+
+    def info(self, tag_name):
+        """
+        最长的name + desc要小于158字符
+        :param tag_name:
+        :return:
+        """
+        if tag_name in self.actors_map:
+            actor = self.actors_map.get(tag_name)
+            len_max_desc = 158 - len(actor.get("name"))
+            actor["desc"] = actor.get("desc")[:len_max_desc]
+            return self.actors_map.get(tag_name)
+        return None
+
+
+os.path.dirname(BASE_DIR)
+beauty_dir = os.path.join(os.path.dirname(BASE_DIR), "script")
+info_file = os.path.join(beauty_dir, "actor.json")
+tag_info = TagViewManager(info_file)

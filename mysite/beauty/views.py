@@ -18,6 +18,8 @@ from django.views.decorators.cache import cache_page
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
 
+from beauty.tags_model import tag_info
+
 logger = logging.getLogger("beauty")
 
 
@@ -86,6 +88,9 @@ def tag_page(request, tag_name, page_num=1):
         'tag': tag,
         'relate_tags': __get_relate_tags(galleries, tag_name)
     }
+    tag_view = tag_info.info(get_pinyin(tag_name))
+    if tag_view:
+        context['tag_view'] = tag_view
     return render(request, 'beauty/tag_page.html', __with_tag_seo(__with_normal_field(context)))
 
 
@@ -227,6 +232,8 @@ def __with_tag_seo(context):
             "keywords": u"{tag_name}_{relate_name}".format(tag_name=tag_name, relate_name="_".join(r_t_name)),
             "desc": u"妹子吧{tag_name}频道为用户提供最优质的相关{tag_name}的高清图片。".format(tag_name=tag_name)
         }
+        if tag_info.info(get_pinyin(tag_name)):
+            seo['desc'] = (seo['desc'] + tag_info.info(get_pinyin(tag_name)).get("desc"))[:90]
         seo_manager.add_seo(tag_name, seo)
     context['seo'] = seo_manager.get_seo(tag_name)
     return context
