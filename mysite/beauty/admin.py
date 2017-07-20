@@ -9,7 +9,7 @@ from beauty.tags_model import tag_cache
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
 
-logger = logging.getLogger("admin")
+logger = logging.getLogger("beauty")
 
 admin.site.register(Image)
 
