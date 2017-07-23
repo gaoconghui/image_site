@@ -23,16 +23,19 @@ class TagCache():
     def __init__(self):
         self.r = redis.Redis("localhost", db=1)
 
-    def add_new_gallery(self, gallery_id, tags):
+    def add_new_gallery(self, gallery_id, tags, priority=None):
         """
         为一个图集建立索引，如果已经建立过索引则直接跳过，所以这个方法可以随便用，不会造成线上数据被重置
-        :param gallery_id: 
+        :param priority:
+        :param gallery_id:
         :param tags: list of tag_id
         :return: 
         """
+        if not priority:
+            priority = int(-time.time())
         for tag in tags:
             if not self.r.zrank(tag, gallery_id):
-                self.r.zadd(tag, gallery_id, int(-time.time()))
+                self.r.zadd(tag, gallery_id, int(priority))
 
     def remove_gallery(self, gallery_id, tags):
         """

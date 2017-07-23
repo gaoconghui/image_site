@@ -3,11 +3,10 @@ import json
 import logging
 import time
 
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-
 from beauty.models import Gallery, Image, Tag
 from beauty.tags_model import tag_cache
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from util.dedup import is_new_md5, add_title_to_md5
 from util.normal import ensure_unicode, ensure_utf8
 from util.pinyin import get_pinyin
@@ -63,6 +62,7 @@ def save_gallery_item(data):
     :return: 
     """
     logger.debug(json.dumps(data))
+    priority = data.get("priority", None)
     ori_gallery = data.get("gallery", {})
     title = ori_gallery['title']
     if not add_title_to_md5(ensure_utf8(title)):
@@ -97,7 +97,7 @@ def save_gallery_item(data):
     # 建立tag索引
     tags_pinyin = [get_pinyin(tag) for tag in ori_gallery.get("tags", "").split(",")]
     tags_pinyin.append("all")
-    tag_cache.add_new_gallery(gallery_id=_gallery.gallery_id, tags=tags_pinyin)
+    tag_cache.add_new_gallery(gallery_id=_gallery.gallery_id, tags=tags_pinyin, priority=priority)
     check_and_add_tags(ori_gallery.get("tags", "").split(","))
 
 
