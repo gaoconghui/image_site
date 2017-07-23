@@ -18,6 +18,7 @@ from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
+from hashlib import md5
 
 logger = logging.getLogger("beauty")
 
@@ -202,7 +203,7 @@ def _get_random_galleries_by_tag(tag, count):
     :param count:
     :return:
     """
-    cache_id = tag.get("tag_id") + str(count)
+    cache_id = md5(ensure_utf8(tag.get("tag_id") + str(count))).hexdigest()
     if cache.get(cache_id) is None:
         cache.set(cache_id, tag_cache.get_random_top10000_by_tag(tag.get("tag_id"), count), timeout=15 * 60)
     return cache.get(cache_id)
