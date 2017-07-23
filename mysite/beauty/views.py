@@ -9,6 +9,7 @@ from beauty.models import Image
 from beauty.seo import seo_manager
 from beauty.static_util import site_statistics, home_tags, tags_without_actor
 from beauty.tags_model import tag_cache, Page
+from beauty.tags_model import tag_info
 from beauty.view_counter import view_counter
 from django.core.cache import cache
 from django.core.paginator import Paginator
@@ -17,8 +18,6 @@ from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
-
-from beauty.tags_model import tag_info
 
 logger = logging.getLogger("beauty")
 
@@ -161,7 +160,8 @@ def gen_gallery(request, _id, page_num=1, page_size=1):
         "page": page,
         "relate_tags": relate_tags,
         "tags_cloud": relate_tags + __get_random_tag(20 - len(relate_tags)),
-        "relate_galleries": relate_galleries
+        "relate_galleries": relate_galleries,
+        "tags_gallery": get_tag_gallery_map(relate_tags[:8], 10)
     }
     random.shuffle(context['tags_cloud'])
     return context
@@ -177,8 +177,35 @@ def get_random_galleries_by_tags(tags, count):
     pre_tag_count[0] += count - sum(pre_tag_count)
     result = set()
     for index, tag in enumerate(tags):
-        result.update(set(tag_cache.get_random_top10000_by_tag(tag.get("tag_id"), pre_tag_count[index])))
+        result.update(set(_get_random_galleries_by_tag(tag, pre_tag_count[index])))
     return list(result)
+
+
+def get_tag_gallery_map(tags, max_count):
+    """
+    生成gallery页面右侧tag-gallery映射栏
+    :param tags:
+    :param max_count:
+    :return:
+    """
+    result = []
+    for tag in tags:
+        item = {'tag': tag, 'galleries': set(_get_random_galleries_by_tag(tag, max_count))}
+        result.append(item)
+    return result
+
+
+def _get_random_galleries_by_tag(tag, count):
+    """
+    获取与tag相关的最多count个图集
+    :param tag:
+    :param count:
+    :return:
+    """
+    cache_id = tag.get("tag_id") + str(count)
+    if cache.get(cache_id) is None:
+        cache.set(cache_id, tag_cache.get_random_top10000_by_tag(tag.get("tag_id"), count), timeout=15 * 60)
+    return cache.get(cache_id)
 
 
 def __get_relate_tags(galleries, tag_id):
