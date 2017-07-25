@@ -1,0 +1,12 @@
+Django==1.11.3
+django-debug-toolbar==1.8
+django-redis==4.8.0
+enum34==1.1.6
+jieba==0.38
+MySQL-python==1.2.5
+peewee==2.10.1
+pypinyin==0.23.0
+pytz==2017.2
+redis==2.10.5
+six==1.10.0
+sqlparse==0.2.3
