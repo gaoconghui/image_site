@@ -27,7 +27,7 @@ def rebuild_tags():
         tags = set(gallery.tags.split(","))
         title = gallery.title
         print title
-        cuts = set([tag for tag in list(jieba.cut(gallery.title, cut_all=True)) if tag in all_tags])
+        cuts = set([tag for tag in list(jieba.cut_for_search(title,HMM=True)) if tag in all_tags])
         news = cuts.difference(tags)
         if len(news) > 0:
             print "{gallery} need rebuild".format(gallery=gid)
