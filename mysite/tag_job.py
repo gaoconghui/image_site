@@ -26,7 +26,7 @@ def rebuild_tags():
         print index
         gid = gallery.gallery_id
         print "process " + gid
-        tags = set(gallery.tags.split(","))
+        tags = set([t for t in gallery.tags.split(",") if t.strip()])
         title = gallery.title
         print title
         cuts = set([tag for tag in list(tokenizer.cut(title)) if tag in all_tags])
