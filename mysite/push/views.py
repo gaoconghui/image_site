@@ -103,8 +103,8 @@ def save_gallery_item(data):
 
 def check_and_add_tags(tags):
     for tag in tags:
-        pinyin = get_pinyin(tag)
-        if pinyin not in get_all_tags():
+        pinyin = get_pinyin(tag).strip()
+        if pinyin and pinyin not in get_all_tags():
             Tag.objects.create_item(
                 tag_name=tag,
                 tag_id=pinyin,
