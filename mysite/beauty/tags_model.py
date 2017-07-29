@@ -87,6 +87,8 @@ class TagCache():
         random_galleries = [Gallery.objects.get(gallery_id=gid) for gid in random_galleries]
         return random_galleries
 
+    def count(self,tag_id):
+        return self.r.zcard(tag_id)
 
 class Page(collections.Sequence):
     """
