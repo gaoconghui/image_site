@@ -6,7 +6,6 @@ tag重建脚本
 # import os, django
 import os
 
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 import django
 
@@ -36,10 +35,28 @@ def rebuild_tags():
             for n_tag in cuts:
                 add_gallery_to_tag(gid, n_tag)
             tags.update(cuts)
-            gallery.tags = ",".join(list(tags))
+            gallery.tags = merge_tags_by_freq(list(tags))
             gallery.save()
         else:
             print "gallery need not rebuild".format(gallery=gid)
+
+
+freq_cache = {}
+
+
+def merge_tags_by_freq(tag_list):
+    """
+    根据词频倒数merge tag_list
+    :param tag_list: 中文，list
+    :return: str
+    """
+
+    def freq(tag_id):
+        if tag_id not in freq_cache:
+            freq_cache[tag_id] = tag_cache.count(tag_id)
+        return freq_cache[tag_id]
+
+    return ",".join(sorted(tag_list, key=lambda x: freq(get_pinyin(x))))
 
 
 def add_gallery_to_tag(gallery_id, tag):
