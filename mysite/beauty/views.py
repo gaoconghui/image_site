@@ -218,6 +218,9 @@ def __get_relate_tags(galleries, tag_id):
     """
     if not galleries:
         return []
+    if len(galleries) == 1:
+        tag_names = galleries[0].tags.split(",")
+        return [{"tag_name" : tag_name , "tag_id" : get_pinyin(tag_name)} for tag_name in tag_names]
     relate_tags = reduce(lambda x, y: x + y, [gallery.tags.split(",") for gallery in galleries])
     relate_tags = [{"tag_name": tag, "tag_id": get_pinyin(tag)} for tag in
                    [tag[0] for tag in Counter(relate_tags).most_common(35) if tag_id != get_pinyin(tag[0])]
