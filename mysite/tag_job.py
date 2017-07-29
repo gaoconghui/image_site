@@ -6,7 +6,6 @@ tag重建脚本
 # import os, django
 import os
 
-import jieba
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 import django
@@ -15,6 +14,9 @@ django.setup()
 from beauty.models import Tag, Gallery
 from beauty.tags_model import tag_cache
 from util.pinyin import get_pinyin
+from util.tag_tokenizer import TagTokenizer
+
+tokenizer = TagTokenizer([tag.tag_name for tag in Tag.objects.all()])
 
 
 def rebuild_tags():
@@ -27,7 +29,7 @@ def rebuild_tags():
         tags = set(gallery.tags.split(","))
         title = gallery.title
         print title
-        cuts = set([tag for tag in list(jieba.cut_for_search(title,HMM=True)) if tag in all_tags])
+        cuts = set([tag for tag in list(tokenizer.cut(title)) if tag in all_tags])
         news = cuts.difference(tags)
         if len(news) > 0:
             print "{gallery} need rebuild".format(gallery=gid)
@@ -107,6 +109,6 @@ def update_tag_meta():
 
 
 if __name__ == '__main__':
-    # jieba.load_userdict("./userdict")
     # init_redis_tag()
-    update_tag_meta()
+    # update_tag_meta()
+    rebuild_tags()
