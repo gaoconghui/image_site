@@ -2,10 +2,9 @@
 
 import logging
 
-from django.contrib import admin
-
 from beauty.models import Gallery, Tag, Image
 from beauty.tags_model import tag_cache
+from django.contrib import admin
 from util.normal import ensure_utf8
 from util.pinyin import get_pinyin
 
@@ -31,7 +30,9 @@ class TagAdmin(admin.ModelAdmin):
         """
         tag_name = obj.tag_name
         logger.info("delete tag {tag}".format(tag=ensure_utf8(tag_name)))
-        gs = Gallery.objects.filter(tags__contains=tag_name)
+        # 存在tag包含的情况
+        gs = Gallery.objects.filter(tags__contains=tag_name + ",") | Gallery.objects.filter(
+            tags__contains="," + tag_name)
         for gallery in gs:
             logger.info("delete tag for gallery : {g_id}".format(g_id=gallery.gallery_id))
             tag_list = gallery.tags.split(",")
