@@ -4,7 +4,7 @@
 <ul class="update_area_lists cl">
     {% for tag in page_content %}
     <li class="i_list list_n3">
-        <a href="{% url 'beauty:tag_page' tag_name=tag.tag_id page_num=1 %}" title="{{tag.display_name}}">
+        <a href="{% url 'beauty:tag_page' tag_name=tag.tag_id page_num=1 %}" target="_blank" title="{{tag.display_name}}">
             <img src="{% upstatic 'beauty/pic/theme.png' %}" data-original="{%footer tag.cover_id %}" width="270" height="370" alt="{{tag.display_name}}" style="display: inline;">
         </a>
         <div class="case_info">
