@@ -36,7 +36,8 @@ class TagAdmin(admin.ModelAdmin):
         for gallery in gs:
             logger.info("delete tag for gallery : {g_id}".format(g_id=gallery.gallery_id))
             tag_list = gallery.tags.split(",")
-            tag_list.remove(tag_name)
+            if tag_name in tag_list:
+                tag_list.remove(tag_name)
             gallery.tags = ",".join(tag_list)
             gallery.save()
         logger.info("delete from tag_cache {tag_id}".format(tag_id=ensure_utf8(obj.tag_id)))
